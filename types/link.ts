@@ -5,6 +5,7 @@ export type LinkType =
   | "twitter"
   | "discord"
   | "telegram"
+  | "linkedin"
   | "url";
 
 export interface ILink {
