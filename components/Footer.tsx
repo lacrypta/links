@@ -4,7 +4,7 @@ interface IFooterProps {
 
 const Footer = ({ children }: IFooterProps) => {
   return (
-    <div className='pt-8 text-base font-semibold leading-7'>
+    <div className='pt-4 text-xs text-center font-semibold leading-5'>
       {children}
       <p>
         <a
