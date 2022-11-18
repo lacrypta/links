@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "New Baskerville";
+  src: url("/fonts/New-Baskerville.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Share Regular";
+  src: url("/fonts/Share-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Trade Gothic Regular";
+  src: url("/fonts/Trade-Gothic-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
