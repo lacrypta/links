@@ -1,12 +1,27 @@
 [
   {
-    "type": "whatsapp",
-    "title": "WhatsApp",
-    "url": "https://whatsapp"
+    "type": "discord",
+    "title": "Discord",
+    "url": "https://discord.com/invite/SN8JNhMgvY"
+  },
+  {
+    "type": "twitter",
+    "title": "Twitter",
+    "url": "https://twitter.com/LaCryptaOficial"
   },
   {
     "type": "instagram",
     "title": "Instagram",
-    "url": "https://whatsapp"
+    "url": "https://www.instagram.com/lacryptaok/"
+  },
+  {
+    "type": "url",
+    "title": "Sitio Web",
+    "url": "https://www.lacrypta.com.ar/"
+  },
+  {
+    "type": "whatsapp",
+    "title": "WhatsApp",
+    "url": "https://api.whatsapp.com/send/?phone=%2B541131080456&text=Hola+como+estan&type=phone_number&app_absent=0"
   }
 ]
