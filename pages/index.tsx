@@ -30,7 +30,7 @@ export default function Home() {
               <LinksList links={links as ILink[]} />
             </PaperBody>
             <Footer>
-              <p className='text-gray-900'>Libre y gratuito para Copiar.</p>
+              <p className='text-slate-400'>Copialo GRATIS!</p>
             </Footer>
           </div>
         </Paper>
