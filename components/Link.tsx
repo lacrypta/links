@@ -1,4 +1,23 @@
-import { ILink } from "../types/link";
+import { IconType } from "react-icons";
+
+import { ILink, LinkType } from "../types/link";
+
+// Icons
+import { GrInstagram } from "react-icons/gr";
+import { SiDiscord } from "react-icons/si";
+import { BsTelegram, BsTwitter, BsGithub, BsWhatsapp } from "react-icons/bs";
+import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
+
+const socialIcon: { [key in LinkType]: IconType } = {
+  whatsapp: BsWhatsapp,
+  instagram: GrInstagram,
+  discord: SiDiscord,
+  github: BsGithub,
+  telegram: BsTelegram,
+  twitter: BsTwitter,
+  url: AiOutlineLink,
+  linkedin: AiFillLinkedin,
+};
 
 interface ILinkProps {
   data: ILink;
@@ -6,17 +25,22 @@ interface ILinkProps {
 
 const Link = ({ data }: ILinkProps) => {
   const { title, type, url } = data;
+
+  const Icon = socialIcon[type];
+
   return (
     <li>
       <a
         href={url}
         target='_blank'
         rel='noreferrer'
-        className='flex font-share justify-center bg-white
+        className='flex font-share items-center justify-center bg-white
         ring-2 ring-gray-900/5 rounded-md p-2
         transition duration-400 ease-out
-       hover:bg-slate-50 hover:scale-x-[1.05] hover:scale-y-[1.20]'
+        hover:bg-slate-50 hover:scale-[1.08]'
       >
+        {" "}
+        <Icon className='mr-1' />
         {title}
       </a>
     </li>
