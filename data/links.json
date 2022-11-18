@@ -1,18 +1,23 @@
 [
   {
+    "type": "instagram",
+    "title": "Instagram",
+    "url": "https://www.instagram.com/lacryptaok/"
+  },
+  {
     "type": "discord",
     "title": "Discord",
     "url": "https://discord.com/invite/SN8JNhMgvY"
   },
   {
+    "type": "github",
+    "title": "Github",
+    "url": "https://github.com/lacrypta"
+  },
+  {
     "type": "twitter",
     "title": "Twitter",
     "url": "https://twitter.com/LaCryptaOficial"
-  },
-  {
-    "type": "instagram",
-    "title": "Instagram",
-    "url": "https://www.instagram.com/lacryptaok/"
   },
   {
     "type": "url",
