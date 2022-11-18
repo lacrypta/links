@@ -9,6 +9,8 @@ const Footer = ({ children }: IFooterProps) => {
       <p>
         <a
           href='https://github.com/lacrypta/links'
+          target='_blank'
+          rel='noreferrer'
           className='text-gray-500 hover:text-gray-800'
         >
           Powered by La Crypta &rarr;
