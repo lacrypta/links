@@ -7,11 +7,13 @@ import { GrInstagram } from "react-icons/gr";
 import { SiDiscord } from "react-icons/si";
 import { BsTelegram, BsTwitter, BsGithub, BsWhatsapp } from "react-icons/bs";
 import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
+import { IoMdHand } from "react-icons/io";
 
 const socialIcon: { [key in LinkType]: IconType } = {
   whatsapp: BsWhatsapp,
   instagram: GrInstagram,
   discord: SiDiscord,
+  voluntary: IoMdHand,
   github: BsGithub,
   telegram: BsTelegram,
   twitter: BsTwitter,

@@ -6,7 +6,8 @@ export type LinkType =
   | "discord"
   | "telegram"
   | "linkedin"
-  | "url";
+  | "url"
+  | "voluntary";
 
 export interface ILink {
   type: LinkType;
