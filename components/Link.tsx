@@ -9,6 +9,8 @@ import { BsTelegram, BsTwitter, BsGithub, BsWhatsapp } from "react-icons/bs";
 import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
 import { IoMdHand } from "react-icons/io";
 
+import TagManager from "react-gtm-module";
+
 const socialIcon: { [key in LinkType]: IconType } = {
   whatsapp: BsWhatsapp,
   instagram: GrInstagram,
@@ -30,12 +32,23 @@ const Link = ({ data }: ILinkProps) => {
 
   const Icon = socialIcon[type];
 
+  function handleClick() {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "link",
+        type,
+        url,
+      },
+    });
+  }
+
   return (
     <li>
       <a
         href={url}
         target='_blank'
         rel='noreferrer'
+        onClick={handleClick}
         className='flex font-share items-center justify-center bg-white
         ring-2 ring-gray-900/5 rounded-md p-2
         transition duration-400 ease-out
