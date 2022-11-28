@@ -12,6 +12,7 @@ import { ILink } from "../types/link";
 
 // Get JSON
 import links from "../data/links.json";
+import Logo from "../components/Logo";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
 
       <Container>
         <Paper>
+          <Logo />
           <Title>LA CRYPTA</Title>
           <div className='divide-y divide-gray-300/50'>
             <PaperBody>
