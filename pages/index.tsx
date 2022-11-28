@@ -14,7 +14,18 @@ import { ILink } from "../types/link";
 import links from "../data/links.json";
 import Logo from "../components/Logo";
 
+// Google Tag manager
+import TagManager, { TagManagerArgs } from "react-gtm-module";
+import { useEffect } from "react";
+const tagManagerArgs: TagManagerArgs = {
+  gtmId: "GTM-WZGV6DS",
+};
+
 export default function Home() {
+  useEffect(() => {
+    TagManager.initialize(tagManagerArgs);
+  });
+
   return (
     <div>
       <Head>
