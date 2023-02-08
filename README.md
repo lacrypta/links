@@ -2,7 +2,15 @@
 
 Create your own custom Linktr.ee like site.
 
-### Deploy on Vercel or Netlify (Both Free)
+### Recommended way (updates available)
+
+- Fork this repo
+- Import it from your **Vercel** or **Netlify** account.
+- Edit **/data/links.json**
+
+# For dummies Way:
+
+### Click for Vercel or Netlify (Both Free)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flacrypta%2Flinks&project-name=my-links&repository-name=links&demo-title=La%20Crypta%20Links&demo-description=Oficial%20links%20for%20La%20Crypta&demo-url=https%3A%2F%2Flinks.lacrypta.ar%2F)
 
