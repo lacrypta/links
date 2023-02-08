@@ -38,11 +38,8 @@ Edit file in **/data/links.json**
 </p>
 
 - Click on **data** directory and then on **links.json**
-<p align="center">
-<img src="docs/links_folder.png" width="60%" title="Create Fork">
-</p>
 
-Click on **Edit icon** on the top-right corner.
+- Click on **Edit icon** on the top-right corner.
 
 <p align="center">
 <img src="docs/edit.png" width="60%" title="Create Fork">
