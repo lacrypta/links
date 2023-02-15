@@ -5,7 +5,13 @@ import { ILink, LinkType } from "../types/link";
 // Icons
 import { GrInstagram } from "react-icons/gr";
 import { SiDiscord } from "react-icons/si";
-import { BsTelegram, BsTwitter, BsGithub, BsWhatsapp } from "react-icons/bs";
+import {
+  BsTelegram,
+  BsTwitter,
+  BsGithub,
+  BsWhatsapp,
+  BsYoutube,
+} from "react-icons/bs";
 import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
 import { IoMdHand } from "react-icons/io";
 
@@ -21,6 +27,7 @@ const socialIcon: { [key in LinkType]: IconType } = {
   twitter: BsTwitter,
   url: AiOutlineLink,
   linkedin: AiFillLinkedin,
+  youtube: BsYoutube,
 };
 
 interface ILinkProps {

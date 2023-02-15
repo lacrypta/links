@@ -2,6 +2,7 @@ export type LinkType =
   | "whatsapp"
   | "github"
   | "instagram"
+  | "youtube"
   | "twitter"
   | "discord"
   | "telegram"
