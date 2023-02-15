@@ -2,6 +2,20 @@
 
 Create your own custom Linktr.ee like site.
 
+## Features
+
+- [x] Netlify Button
+- [x] Vercel Button
+- [x] Links config
+- [ ] Title and Page config
+- [ ] Editable Logo
+- [ ] Animations on load
+- [ ] Editable Background
+- [ ] Editable Colors
+- [ ] Editable Fonts
+
+---
+
 ### Recommended way (updates available)
 
 - Fork this repo
