@@ -7,8 +7,8 @@ Create your own custom Linktr.ee like site.
 - [x] Netlify Button
 - [x] Vercel Button
 - [x] Links config
-- [ ] Title and Page config
-- [ ] Editable Logo
+- [x] Title and Page config
+- [x] Editable Logo
 - [ ] Animations on load
 - [ ] Editable Background
 - [ ] Editable Colors
