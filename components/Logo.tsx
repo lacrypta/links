@@ -1,5 +1,8 @@
+// import next/config
 import Image from "next/image";
-import config from "../data/config.json";
+import getConfig from "next/config";
+
+const config = getConfig().publicRuntimeConfig.settings;
 
 const Logo = () => {
   return (
