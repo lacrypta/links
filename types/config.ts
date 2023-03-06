@@ -1,4 +1,5 @@
 export interface Config {
+  version?: string;
   head: {
     title: string;
   };
