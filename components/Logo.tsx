@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LogoSvg from "../public/logo.svg";
+import LogoSvg from "../public/Foto1x1.jpg";
 
 const Logo = () => {
   return (
@@ -9,7 +9,7 @@ const Logo = () => {
       shadow-lg
     '
     >
-      <Image width='100' height='100' alt='La Crypta Logo' src={LogoSvg} />
+      <Image width='100' height='100' alt='Doxxed' src={LogoSvg} />
     </div>
   );
 };
