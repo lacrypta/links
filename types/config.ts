@@ -1,9 +1,12 @@
+import { Block } from "./block";
+
 export interface Config {
   version?: string;
-  head: {
+  html: {
     title: string;
   };
   main: {
     title: string;
   };
+  blocks: Block[];
 }

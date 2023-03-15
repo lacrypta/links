@@ -1,5 +1,4 @@
 import Image from "next/image";
-import config from "../data/config.json";
 
 const Logo = () => {
   return (
@@ -11,7 +10,7 @@ const Logo = () => {
       <Image
         width='140'
         height='140'
-        alt={config.main.title}
+        alt={"config.main.title"}
         src='/images/profile.png'
       />
     </div>
