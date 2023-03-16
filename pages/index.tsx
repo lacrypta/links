@@ -10,12 +10,10 @@ import Paper from "../components/Paper";
 import Title from "../components/Title";
 import PaperBody from "../components/PaperBody";
 import LinksList from "../components/LinksList";
+import Logo from "../components/Logo";
 
 // Types
 import { Block } from "../types/block";
-
-// Get JSON
-import Logo from "../components/Logo";
 
 // Google Tag manager
 import TagManager, { TagManagerArgs } from "react-gtm-module";
@@ -23,7 +21,6 @@ import TagManager, { TagManagerArgs } from "react-gtm-module";
 const tagManagerArgs: TagManagerArgs = {
   gtmId: "GTM-WZGV6DS",
 };
-
 interface HomeProps {
   config: Config;
 }
@@ -44,7 +41,7 @@ export default function Home({ config }: HomeProps) {
 
       <Container>
         <Paper>
-          <Logo />
+          <Logo title={main.title} />
           <Title>{main?.title}</Title>
           <div className='divide-y divide-gray-300/50'>
             <PaperBody>
