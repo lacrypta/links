@@ -1,6 +1,10 @@
 import YAML from "yaml";
 import fs from "fs";
+import path from "path";
+
 import { Config } from "../types/config";
+
+const CONFIG_DIRECTORY = path.join(process.cwd(), "public/data");
 
 export async function fetchFileContents(url: string): Promise<string> {
   const res = await fetch(url);
@@ -19,17 +23,19 @@ export async function fetchConfig(url: string): Promise<Config> {
 }
 
 export async function readLocalFileContents(filename: string): Promise<string> {
-  return fs.readFileSync("./public/data/config.yml", "utf8");
+  // get local path with fs path
+
+  return fs.readFileSync(filename, "utf8");
 }
 
 export async function readLocalConfig() {
   let res;
   try {
-    res = await readLocalFileContents(`./public/data/config.yml`);
+    res = await readLocalFileContents(`${CONFIG_DIRECTORY}/config.yml`);
     console.info("Using custom config.yml");
   } catch (e) {
     console.warn("config.yml not found, using config.sample.yml instead");
-    res = await readLocalFileContents(`./public/data/config.sample.yml`);
+    res = await readLocalFileContents(`${CONFIG_DIRECTORY}/config.sample.yml`);
   }
   return YAML.parse(res);
 }
