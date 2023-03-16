@@ -51,7 +51,7 @@ export default function Home({ config, error }: HomeProps) {
             <Footer>
               <p className='text-slate-400'>Copialo GRATIS!</p>
             </Footer>
-            <div>{error && error}</div>
+            {error && <div>{error}</div>}
           </div>
         </Paper>
       </Container>
