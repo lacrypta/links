@@ -1,28 +1,35 @@
 import YAML from "yaml";
+import fs from "fs";
 import { Config } from "../types/config";
 
-export async function fetchFileContents(filename: string): Promise<string> {
-  const res = await fetch(filename);
+export async function fetchFileContents(url: string): Promise<string> {
+  const res = await fetch(url);
 
   if (!res.ok) {
-    throw "File not found";
+    throw new Error("File not found");
   }
 
   const blob = await res.blob();
   return await blob.text();
 }
 
-export async function fetchConfig(): Promise<Config> {
-  console.info("Fetching config...");
+export async function fetchConfig(url: string): Promise<Config> {
+  let res = await fetchFileContents(url);
+  return YAML.parse(res);
+}
+
+export async function readLocalFileContents(filename: string): Promise<string> {
+  return fs.readFileSync("./public/data/config.yml", "utf8");
+}
+
+export async function readLocalConfig() {
   let res;
   try {
-    res = await fetchFileContents("/data/config.yml");
+    res = await readLocalFileContents(`./public/data/config.yml`);
     console.info("Using custom config.yml");
   } catch (e) {
     console.warn("config.yml not found, using config.sample.yml instead");
-    res = await fetchFileContents("/data/config.sample.yml");
+    res = await readLocalFileContents(`./public/data/config.sample.yml`);
   }
-  const config = YAML.parse(res);
-
-  return config;
+  return YAML.parse(res);
 }

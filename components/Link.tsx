@@ -35,8 +35,6 @@ interface ILinkProps {
 }
 
 const Link = ({ data }: ILinkProps) => {
-  console.info("data: ");
-  console.dir(data);
   data.type = data.type ? data.type : "link"; // Default
 
   const { title, type, icon, url } = data;
