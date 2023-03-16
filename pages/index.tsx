@@ -23,9 +23,10 @@ const tagManagerArgs: TagManagerArgs = {
 };
 interface HomeProps {
   config: Config;
+  error?: string | null;
 }
 
-export default function Home({ config }: HomeProps) {
+export default function Home({ config, error }: HomeProps) {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs);
   });
@@ -50,6 +51,7 @@ export default function Home({ config }: HomeProps) {
             <Footer>
               <p className='text-slate-400'>Copialo GRATIS!</p>
             </Footer>
+            <div>{error && error}</div>
           </div>
         </Paper>
       </Container>
@@ -57,22 +59,27 @@ export default function Home({ config }: HomeProps) {
   );
 }
 
-// Uncomment for dynamic rendering
-
 export async function getServerSideProps(context: any) {
-  const subdomain = context.req.headers.host.split(".")[0];
   let config: Config = await readLocalConfig();
-
-  if (config.core?.github_fetch) {
-    const url = `https://raw.githubusercontent.com/${subdomain}/.lacrypta/main/config.yml`;
+  let error = null;
+  if (process.env.DOMAIN_MATCH) {
     try {
+      const hostname = context.req.headers.host.split(".");
+      const subdomain = hostname.shift();
+      const domain = hostname.join(".");
+      if (domain !== process.env.DOMAIN_MATCH) {
+        throw new Error("Invalid DOMAIN_MATCH in .env");
+      }
+      const url = `https://raw.githubusercontent.com/${subdomain}/.lacrypta/main/config.yml`;
+
       config = await fetchConfig(url);
-    } catch (e) {
-      console.warn("Invalid username");
+    } catch (e: any) {
+      console.warn("Invalid username or subdomain: " + e.message);
+      error = e.message;
     }
   }
 
   return {
-    props: { config },
+    props: { config, error },
   };
 }
