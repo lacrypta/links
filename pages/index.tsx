@@ -4,13 +4,13 @@ import { Config } from "../types/config";
 
 // Components
 import Head from "next/head";
-import Footer from "../components/Footer";
-import Container from "../components/Container";
-import Paper from "../components/Paper";
-import Title from "../components/Title";
-import PaperBody from "../components/PaperBody";
-import LinksList from "../components/LinksList";
-import Logo from "../components/Logo";
+import Footer from "../components/footer/Footer";
+import Container from "../components/content/Container";
+import Paper from "../components/content/Paper";
+import Title from "../components/header/Title";
+import PaperBody from "../components/content/PaperBody";
+import BlockList from "../components/content/BlockList";
+import Logo from "../components/header/Logo";
 
 // Types
 import { Block } from "../types/block";
@@ -46,7 +46,7 @@ export default function Home({ config, error }: HomeProps) {
           <Title>{main?.title}</Title>
           <div className='divide-y divide-gray-300/50'>
             <PaperBody>
-              <LinksList links={blocks as Block[]} />
+              <BlockList blocks={blocks as Block[]} />
             </PaperBody>
             <Footer>
               <p className='text-slate-400'>Copialo GRATIS!</p>

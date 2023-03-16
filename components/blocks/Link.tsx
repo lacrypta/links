@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 
-import { Block, BlockType, Icon } from "../types/block";
+import { Block, Icon } from "../../types/block";
 
 // Icons
 import { GrInstagram } from "react-icons/gr";
@@ -35,8 +35,6 @@ interface ILinkProps {
 }
 
 const Link = ({ data }: ILinkProps) => {
-  data.type = data.type ? data.type : "link"; // Default
-
   const { title, type, icon, url } = data;
 
   const Icon = socialIcon[icon];

@@ -4,8 +4,6 @@ import path from "path";
 
 import { Config } from "../types/config";
 
-const CONFIG_DIRECTORY = path.join(process.cwd(), "public/config");
-
 export async function fetchFileContents(url: string): Promise<string> {
   const res = await fetch(url);
 
@@ -29,6 +27,7 @@ export async function readLocalFileContents(filename: string): Promise<string> {
 }
 
 export async function readLocalConfig() {
+  const CONFIG_DIRECTORY = path.join(process.cwd(), "public/config");
   let res;
   try {
     res = await readLocalFileContents(`${CONFIG_DIRECTORY}/config.yml`);
@@ -38,4 +37,8 @@ export async function readLocalConfig() {
     res = await readLocalFileContents(`${CONFIG_DIRECTORY}/config.sample.yml`);
   }
   return YAML.parse(res);
+}
+
+export function capitalize(s: string) {
+  return s && s[0].toUpperCase() + s.slice(1);
 }
