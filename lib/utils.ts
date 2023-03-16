@@ -4,7 +4,7 @@ import path from "path";
 
 import { Config } from "../types/config";
 
-const CONFIG_DIRECTORY = path.join(process.cwd(), "public/data");
+const CONFIG_DIRECTORY = path.join(process.cwd(), "public/config");
 
 export async function fetchFileContents(url: string): Promise<string> {
   const res = await fetch(url);
