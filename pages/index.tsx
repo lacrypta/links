@@ -4,13 +4,13 @@ import { Config } from "../types/config";
 
 // Components
 import Head from "next/head";
-import Footer from "../components/Footer";
-import Container from "../components/Container";
-import Paper from "../components/Paper";
-import Title from "../components/Title";
-import PaperBody from "../components/PaperBody";
-import BlockList from "../components/BlockList";
-import Logo from "../components/Logo";
+import Footer from "../components/footer/Footer";
+import Container from "../components/content/Container";
+import Paper from "../components/content/Paper";
+import Title from "../components/header/Title";
+import PaperBody from "../components/content/PaperBody";
+import BlockList from "../components/content/BlockList";
+import Logo from "../components/header/Logo";
 
 // Types
 import { Block } from "../types/block";

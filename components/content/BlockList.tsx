@@ -1,5 +1,5 @@
-import { Block as IBlock } from "../types/block";
-import Block from "./blocks/Block";
+import { Block as IBlock } from "../../types/block";
+import Block from "../blocks/Block";
 
 interface BlockListProps {
   blocks?: IBlock[];
