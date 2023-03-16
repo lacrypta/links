@@ -70,7 +70,7 @@ export async function getServerSideProps(context: any) {
       if (domain !== process.env.DOMAIN_MATCH) {
         throw new Error("Invalid DOMAIN_MATCH in .env");
       }
-      const url = `https://raw.githubusercontent.com/${subdomain}/.lacrypta/main/config.yml`;
+      const url = `https://raw.githubusercontent.com/${subdomain}/.hodl.ar/main/config.yml`;
 
       config = await fetchConfig(url);
     } catch (e: any) {
