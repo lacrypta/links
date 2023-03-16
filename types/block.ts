@@ -1,4 +1,4 @@
-export type LinkType =
+export type Icon =
   | "whatsapp"
   | "github"
   | "instagram"
@@ -10,8 +10,11 @@ export type LinkType =
   | "url"
   | "voluntary";
 
-export interface ILink {
-  type: LinkType;
+export type BlockType = "text" | "link";
+
+export interface Block {
   title: string;
+  type?: BlockType;
+  icon: Icon;
   url: string;
 }

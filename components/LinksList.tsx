@@ -1,8 +1,8 @@
-import { ILink } from "../types/link";
+import { Block } from "../types/block";
 import Link from "./Link";
 
 interface ILinksListProps {
-  links?: ILink[];
+  links?: Block[];
 }
 
 const LinksList = ({ links }: ILinksListProps) => {

@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 
-import { ILink, LinkType } from "../types/link";
+import { Block, BlockType, Icon } from "../types/block";
 
 // Icons
 import { GrInstagram } from "react-icons/gr";
@@ -17,7 +17,7 @@ import { IoMdHand } from "react-icons/io";
 
 import TagManager from "react-gtm-module";
 
-const socialIcon: { [key in LinkType]: IconType } = {
+const socialIcon: { [key in Icon]: IconType } = {
   whatsapp: BsWhatsapp,
   instagram: GrInstagram,
   discord: SiDiscord,
@@ -31,13 +31,15 @@ const socialIcon: { [key in LinkType]: IconType } = {
 };
 
 interface ILinkProps {
-  data: ILink;
+  data: Block;
 }
 
 const Link = ({ data }: ILinkProps) => {
-  const { title, type, url } = data;
+  data.type = data.type ? data.type : "link"; // Default
 
-  const Icon = socialIcon[type];
+  const { title, type, icon, url } = data;
+
+  const Icon = socialIcon[icon];
 
   function handleClick() {
     TagManager.dataLayer({
