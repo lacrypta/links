@@ -60,7 +60,7 @@ export default function Home({ config, error }: HomeProps) {
 }
 
 export async function getServerSideProps(context: any) {
-  let config: Config = await readLocalConfig();
+  let config: Config | null = null;
   let error = null;
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -77,6 +77,10 @@ export async function getServerSideProps(context: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
     }
+  }
+
+  if (!config) {
+    config = await readLocalConfig();
   }
 
   return {
