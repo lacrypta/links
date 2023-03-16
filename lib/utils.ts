@@ -10,7 +10,7 @@ export async function fetchFileContents(url: string): Promise<string> {
   const res = await fetch(url);
 
   if (!res.ok) {
-    throw new Error("File not found");
+    throw new Error(`Remove file not found (${url})`);
   }
 
   const blob = await res.blob();
