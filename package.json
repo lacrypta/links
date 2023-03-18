@@ -17,6 +17,7 @@
     "@types/react-dom": "18.0.9",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
+    "framer-motion": "^10.6.0",
     "fs": "^0.0.1-security",
     "next": "13.0.3",
     "react": "18.2.0",
