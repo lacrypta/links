@@ -18,6 +18,7 @@ import { Block } from "../types/block";
 // Google Tag manager
 import TagManager from "react-gtm-module";
 import { motion } from "framer-motion";
+import { getProfile } from "../lib/github";
 interface HomeProps {
   config: Config;
   error?: string | null;
@@ -86,6 +87,9 @@ export async function getServerSideProps(context: any) {
       const url = `https://raw.githubusercontent.com/${subdomain}/.hodl.ar/main/config.yml`;
 
       config = await fetchConfig(url);
+      if (!config.main.picture) {
+        config.main.picture = (await getProfile(subdomain)).avatar_url;
+      }
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
