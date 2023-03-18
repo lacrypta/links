@@ -51,7 +51,6 @@ export default function Home({ config, error }: HomeProps) {
             type: "spring",
             stiffness: 260,
             damping: 20,
-            staggerChildren: 0.5,
           }}
         >
           <Paper>
