@@ -1,10 +1,6 @@
 # Config version
 version: 0.3.2
 
-# Github Remote config
-core:
-  github_fetch: true;
-
 # HTML Head settings
 html:
   title: "La Crypta | Links"
