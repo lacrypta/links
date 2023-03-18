@@ -17,6 +17,7 @@ import { Block } from "../types/block";
 
 // Google Tag manager
 import TagManager from "react-gtm-module";
+import { motion } from "framer-motion";
 interface HomeProps {
   config: Config;
   error?: string | null;
@@ -43,19 +44,30 @@ export default function Home({ config, error }: HomeProps) {
       </Head>
 
       <Container>
-        <Paper>
-          <Logo title={main.title} picture={main.picture} />
-          <Title>{main?.title}</Title>
-          <div className='divide-y divide-gray-300/50'>
-            <PaperBody>
-              <BlockList blocks={blocks as Block[]} />
-            </PaperBody>
-            <Footer>
-              <p className='text-slate-400'>Copialo GRATIS!</p>
-            </Footer>
-            {error && <div>{error}</div>}
-          </div>
-        </Paper>
+        <motion.div
+          initial={{ rotate: 180, scale: 0 }}
+          animate={{ rotate: 0, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            staggerChildren: 0.5,
+          }}
+        >
+          <Paper>
+            <Logo title={main.title} picture={main.picture} />
+            <Title>{main?.title}</Title>
+            <div className='divide-y divide-gray-300/50'>
+              <PaperBody>
+                <BlockList blocks={blocks as Block[]} />
+              </PaperBody>
+              <Footer>
+                <p className='text-slate-400'>Copialo GRATIS!</p>
+              </Footer>
+              {error && <div>{error}</div>}
+            </div>
+          </Paper>
+        </motion.div>
       </Container>
     </div>
   );
