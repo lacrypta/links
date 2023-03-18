@@ -7,6 +7,7 @@ export interface Config {
   };
   main: {
     title: string;
+    picture?: string;
   };
   blocks: Block[];
 }
