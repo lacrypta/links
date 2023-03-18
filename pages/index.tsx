@@ -17,19 +17,21 @@ import { Block } from "../types/block";
 
 // Google Tag manager
 import TagManager, { TagManagerArgs } from "react-gtm-module";
-
-const tagManagerArgs: TagManagerArgs = {
-  gtmId: "GTM-WZGV6DS",
-};
 interface HomeProps {
   config: Config;
   error?: string | null;
 }
 
 export default function Home({ config, error }: HomeProps) {
+  // Google Tag Manager
   useEffect(() => {
-    TagManager.initialize(tagManagerArgs);
-  });
+    if (!config.html.google_analytics) {
+      return;
+    }
+    TagManager.initialize({
+      gtmId: config.html.google_analytics,
+    });
+  }, [config.html.google_analytics]);
 
   const { blocks, html, main } = config;
   return (

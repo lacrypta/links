@@ -4,6 +4,7 @@ export interface Config {
   version?: string;
   html: {
     title: string;
+    google_analytics?: string;
   };
   main: {
     title: string;

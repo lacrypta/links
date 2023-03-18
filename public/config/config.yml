@@ -1,9 +1,10 @@
 # Config version
-version: 0.3.2
+version: 0.3.3
 
 # HTML Head settings
 html:
   title: "La Crypta | Links"
+  # google_analytics: "GTM-WZGV6DS"
 
 # Main container settings
 main:
