@@ -16,7 +16,7 @@ import Logo from "../components/header/Logo";
 import { Block } from "../types/block";
 
 // Google Tag manager
-import TagManager, { TagManagerArgs } from "react-gtm-module";
+import TagManager from "react-gtm-module";
 interface HomeProps {
   config: Config;
   error?: string | null;
