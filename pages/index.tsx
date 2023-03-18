@@ -42,7 +42,7 @@ export default function Home({ config, error }: HomeProps) {
 
       <Container>
         <Paper>
-          <Logo title={main.title} />
+          <Logo title={main.title} picture={main.picture} />
           <Title>{main?.title}</Title>
           <div className='divide-y divide-gray-300/50'>
             <PaperBody>
