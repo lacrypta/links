@@ -21,10 +21,6 @@ blocks:
     icon: "discord"
     url: "https://discord.lacrypta.com.ar"
 
-  - title: "Quiero participar!"
-    icon: "voluntary"
-    url: "https://docs.google.com/forms/d/e/1FAIpQLSfMM_fDXrBVlxujPy4yhYRuhHWrtPSvoD8QRCKuHzZXgsFFzg/viewform"
-
   - title: "Github"
     icon: "github"
     url: "https://github.lacrypta.com.ar"
