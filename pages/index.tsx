@@ -26,13 +26,13 @@ interface HomeProps {
 export default function Home({ config, error }: HomeProps) {
   // Google Tag Manager
   useEffect(() => {
-    if (!config.html.google_analytics) {
+    if (!config?.html?.google_analytics) {
       return;
     }
     TagManager.initialize({
       gtmId: config.html.google_analytics,
     });
-  }, [config.html.google_analytics]);
+  }, [config?.html?.google_analytics]);
 
   const { blocks, html, main } = config;
   return (
