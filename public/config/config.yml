@@ -1,5 +1,5 @@
 # Config version
-version: 0.3.0
+version: 0.3.2
 
 # Github Remote config
 core:
@@ -12,6 +12,7 @@ html:
 # Main container settings
 main:
   title: "LA CRYPTA"
+  # just replace your local file /public/images/profile.png
 
 # Blocks list
 blocks:

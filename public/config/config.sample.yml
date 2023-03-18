@@ -1,5 +1,5 @@
 # Config version
-version: 0.3.0
+version: 0.3.2
 
 # HTML Head settings
 html:
@@ -8,6 +8,7 @@ html:
 # Main container settings
 main:
   title: "LA CRYPTA"
+  # picture: "https://github.com/lacrypta/links/blob/main/public/images/profile.png?raw=true"
 
 # Blocks list
 blocks:
