@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Block as IBlock } from "../../types/block";
 import Block from "../blocks/Block";
 
@@ -7,11 +8,11 @@ interface BlockListProps {
 
 const BlockList = ({ blocks }: BlockListProps) => {
   return (
-    <ul className='space-y-4 text-lg'>
+    <motion.ul className='space-y-4 text-lg'>
       {blocks?.map((block, k) => (
         <Block data={block} key={k} />
       ))}
-    </ul>
+    </motion.ul>
   );
 };
 
