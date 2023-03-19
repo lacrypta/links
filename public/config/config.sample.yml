@@ -6,6 +6,10 @@ html:
   title: "La Crypta | Links"
   google_analytics: "GTM-WZGV6DS"
 
+# Theme settings
+theme:
+  background_color: "#f9fafb"
+
 # Main container settings
 main:
   title: "LA CRYPTA"
