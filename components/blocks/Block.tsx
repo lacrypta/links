@@ -8,7 +8,11 @@ interface BlockProps {
 const Block = ({ data }: BlockProps) => {
   data.type = data.type ? data.type : "link"; // Default
   const BlockComponent = require(`./${capitalize(data.type)}`).default;
-  return <BlockComponent data={data} />;
+  return (
+    <div className='m-1 mx-6'>
+      <BlockComponent data={data} />
+    </div>
+  );
 };
 
 export default Block;

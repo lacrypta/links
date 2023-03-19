@@ -43,12 +43,12 @@ const BlockList = ({ blocks }: BlockListProps) => {
         <motion.div
           key={k}
           transition={{
-            delay: 0.05 * k + 0.2,
+            delay: 0.05 * k + 0.55,
             easings: "linear",
             duration: 0.5,
           }}
           animate={{ opacity: 1, maxHeight: "100px" }}
-          className='overflow-hidden p-1 px-6'
+          className='overflow-hidden'
         >
           <Block data={block} />
         </motion.div>
