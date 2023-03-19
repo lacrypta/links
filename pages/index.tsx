@@ -19,6 +19,8 @@ import { Block } from "../types/block";
 import TagManager from "react-gtm-module";
 import { motion } from "framer-motion";
 import { getProfile } from "../lib/github";
+import { ThemeProvider } from "styled-components";
+import { generateTheme } from "../lib/theme";
 interface HomeProps {
   config: Config;
   error?: string | null;
@@ -44,31 +46,33 @@ export default function Home({ config, error }: HomeProps) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Container>
-        <motion.div
-          initial={{ rotate: 180, scale: 0 }}
-          animate={{ rotate: 0, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 20,
-          }}
-        >
-          <Paper>
-            <Logo title={main.title} picture={main.picture} />
-            <Title>{main?.title}</Title>
-            <div className='divide-y divide-gray-300/50'>
-              <PaperBody>
-                <BlockList blocks={blocks as Block[]} />
-              </PaperBody>
-              <Footer>
-                <p className='text-slate-400'>Copialo GRATIS!</p>
-              </Footer>
-              {error && <div>{error}</div>}
-            </div>
-          </Paper>
-        </motion.div>
-      </Container>
+      <ThemeProvider theme={generateTheme(config.theme)}>
+        <Container>
+          <motion.div
+            initial={{ rotate: 180, scale: 0 }}
+            animate={{ rotate: 0, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+          >
+            <Paper>
+              <Logo title={main.title} picture={main.picture} />
+              <Title>{main?.title}</Title>
+              <div className='divide-y divide-gray-300/50'>
+                <PaperBody>
+                  <BlockList blocks={blocks as Block[]} />
+                </PaperBody>
+                <Footer>
+                  <p className='text-slate-400'>Copialo GRATIS!</p>
+                </Footer>
+                {error && <div>{error}</div>}
+              </div>
+            </Paper>
+          </motion.div>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }
