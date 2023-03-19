@@ -111,8 +111,8 @@ const Container = styled.div`
   }
 
   ${(props) => `
-  background-color: ${props.theme.background_color}    
-`}
+    background-color: ${props.theme.background_color}    
+  `}
 `;
 
 // Nice gradient Background

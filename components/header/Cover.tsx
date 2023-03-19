@@ -1,9 +1,18 @@
 import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const Container = styled.div`
+  ${(props) => `
+  background-color: ${props.theme.cover_color};
+  `}
+`;
+
+const MotionComponent = motion(Container);
 
 export const Cover = () => {
   return (
-    <motion.div
-      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg bg-gray-200 h-28 rounded-t-lg z-10'
+    <MotionComponent
+      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg h-28 rounded-t-lg z-10'
       initial={{ translateY: "100%" }}
       animate={{ translateY: "10%" }}
       transition={{
