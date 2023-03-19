@@ -5,8 +5,8 @@ interface IPaperProps {
 const Paper = ({ children }: IPaperProps) => {
   return (
     <div
-      className='relative bg-white pt-[100px] shadow-2xl ring-1 ring-gray-900/5 rounded-lg
-      sm:w-[800px] sm:mx-auto sm:max-w-lg'
+      className='bg-white shadow-2xl ring-1 ring-gray-900/5
+      relative pt-[100px] z-20'
     >
       <div className='mx-auto'>{children}</div>
     </div>

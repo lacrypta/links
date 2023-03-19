@@ -11,6 +11,7 @@ import Title from "../components/header/Title";
 import PaperBody from "../components/content/PaperBody";
 import BlockList from "../components/content/BlockList";
 import Logo from "../components/header/Logo";
+import Cover from "../components/header/Cover";
 
 // Types
 import { Block } from "../types/block";
@@ -21,6 +22,7 @@ import { motion } from "framer-motion";
 import { getProfile } from "../lib/github";
 import { ThemeProvider } from "styled-components";
 import { generateTheme } from "../lib/theme";
+
 interface HomeProps {
   config: Config;
   error?: string | null;
@@ -57,17 +59,21 @@ export default function Home({ config, error }: HomeProps) {
               damping: 20,
             }}
           >
-            <Paper>
-              <Logo title={main.title} picture={main.picture} />
-              <Title>{main?.title}</Title>
-              <div className='divide-y divide-gray-300/50'>
-                <PaperBody>
-                  <BlockList blocks={blocks as Block[]} />
-                </PaperBody>
-                <Footer />
-                {error && <div>{error}</div>}
-              </div>
-            </Paper>
+            <div className='sm:w-[800px] sm:mx-auto sm:max-w-lg'>
+              <Cover />
+              <Paper>
+                <Logo title={main.title} picture={main.picture} />
+                <Title>{main?.title}</Title>
+                <div className='divide-y divide-gray-300/50'>
+                  <PaperBody>
+                    <BlockList blocks={blocks as Block[]} />
+                  </PaperBody>
+
+                  {error && <div>{error}</div>}
+                </div>
+              </Paper>
+              <Footer />
+            </div>
           </motion.div>
         </Container>
       </ThemeProvider>
