@@ -7,7 +7,7 @@ export const Cover = () => {
       initial={{ translateY: "100%" }}
       animate={{ translateY: "10%" }}
       transition={{
-        delay: 0.3,
+        delay: 0.9,
         type: "spring",
         stiffness: 260,
         damping: 20,
