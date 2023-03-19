@@ -64,9 +64,7 @@ export default function Home({ config, error }: HomeProps) {
                 <PaperBody>
                   <BlockList blocks={blocks as Block[]} />
                 </PaperBody>
-                <Footer>
-                  <p className='text-slate-400'>Copialo GRATIS!</p>
-                </Footer>
+                <Footer />
                 {error && <div>{error}</div>}
               </div>
             </Paper>

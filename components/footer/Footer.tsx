@@ -1,14 +1,25 @@
+import { motion } from "framer-motion";
 import { BsGithub } from "react-icons/bs";
 
 interface IFooterProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Footer = ({ children }: IFooterProps) => {
   return (
-    <div className='pt-4 text-xs text-center font-semibold leading-5'>
+    <motion.div
+      className='text-xs text-center font-semibold leading-5 bg-gray-100 rounded-b-lg overflow-hidden'
+      initial={{ maxHeight: "0px", padding: "0px" }}
+      animate={{ maxHeight: "100px", padding: "10px" }}
+      transition={{
+        delay: 0.8,
+        duration: 0.4,
+        easings: "linear",
+      }}
+    >
       {children}
-      <p>
+
+      <div>
         <a
           href='https://github.com/lacrypta/links'
           target='_blank'
@@ -19,8 +30,8 @@ const Footer = ({ children }: IFooterProps) => {
             <BsGithub className='mr-1' /> Powered by La Crypta &rarr;
           </span>
         </a>
-      </p>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
