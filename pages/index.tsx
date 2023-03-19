@@ -5,7 +5,7 @@ import { Config } from "../types/config";
 // Components
 import Head from "next/head";
 import Footer from "../components/footer/Footer";
-import Container from "../components/content/Container";
+import Container from "../components/layout/Container";
 import Paper from "../components/content/Paper";
 import Title from "../components/header/Title";
 import PaperBody from "../components/content/PaperBody";

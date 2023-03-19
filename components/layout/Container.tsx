@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components";
 import styled from "styled-components";
-import Background from "../layout/Background";
+import Background from "./Background";
 
 const ContainerWithCustomCss = styled.div``;
 
