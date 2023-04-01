@@ -7,6 +7,11 @@ html:
   google_analytics: "GTM-WZGV6DS"
   description: "HTML Link Description"
 
+# NOSTR Settings
+nostr:
+  # handle: "YOUR_HANDLE@hodl.ar"
+  # npub: "npubYOUR_PUB" # Agregar
+
 # Theme settings
 theme:
   background_color: "#f9fafb"

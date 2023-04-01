@@ -1,4 +1,5 @@
 import { Block } from "./block";
+import { NostrConfig } from "./nostr";
 import { ThemeConfig } from "./theme";
 
 export interface Config {
@@ -8,7 +9,8 @@ export interface Config {
     google_analytics?: string;
     description?: string;
   };
-  theme: ThemeConfig;
+  nostr?: NostrConfig;
+  theme?: ThemeConfig;
   main: {
     title: string;
     picture?: string;
