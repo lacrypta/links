@@ -6,6 +6,7 @@ export interface Config {
   html: {
     title: string;
     google_analytics?: string;
+    description?: string;
   };
   theme: ThemeConfig;
   main: {

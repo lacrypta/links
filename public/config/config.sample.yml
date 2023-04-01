@@ -5,6 +5,7 @@ version: 0.3.3
 html:
   title: "La Crypta | Links"
   google_analytics: "GTM-WZGV6DS"
+  description: "HTML Link Description"
 
 # Theme settings
 theme:
