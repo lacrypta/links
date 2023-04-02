@@ -9,8 +9,8 @@ html:
 
 # NOSTR Settings
 nostr:
-  # handle: "YOUR_HANDLE@hodl.ar"
-  # npub: "npubYOUR_PUB" # Agregar
+  # handle: "YOUR_HANDLE" # should turn into YOUR_HANDLE@hodl.ar
+  # npub: "npubYOUR_PUB" # Your NOSTR NPub Key (Public) CAREFULL - Do not share nsec !
 
 # Theme settings
 theme:
