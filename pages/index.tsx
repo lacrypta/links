@@ -51,7 +51,7 @@ export default function Home({ config, error }: HomeProps) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <ThemeProvider theme={generateTheme(config.theme)}>
+      <ThemeProvider theme={generateTheme(config.theme || {})}>
         <Container>
           <motion.div
             initial={{ rotate: 180, scale: 0 }}
