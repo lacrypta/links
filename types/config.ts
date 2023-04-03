@@ -4,6 +4,7 @@ import { ThemeConfig } from "./theme";
 
 export interface Config {
   version?: string;
+  username?: string;
   html: {
     title: string;
     google_analytics?: string;

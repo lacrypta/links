@@ -1,6 +1,9 @@
 # Config version
 version: 0.3.3
 
+# HODL username
+username: "lacrypta" # should turn into YOUR_HANDLE@hodl.ar and YOUR_HANDLE.hodl.ar
+
 # HTML Head settings
 html:
   title: "La Crypta | Links"
