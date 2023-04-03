@@ -476,6 +476,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chrome@npm:^0.0.74":
+  version: 0.0.74
+  resolution: "@types/chrome@npm:0.0.74"
+  dependencies:
+    "@types/filesystem": "*"
+  checksum: 3c6659b9712200d7f7692b41250ae1581945ad9034ddb5875944ede59125aaaef918049934d534b0706a2632d3e79861e8861ba1f49a0397a2805b373b2a1232
+  languageName: node
+  linkType: hard
+
+"@types/filesystem@npm:*":
+  version: 0.0.32
+  resolution: "@types/filesystem@npm:0.0.32"
+  dependencies:
+    "@types/filewriter": "*"
+  checksum: 4b9079d200a3b241722b90e1c5806c4b32c4dac87d42a1c7ef76a2c0dafdbe7d5f1a379b873ad5de73622b44de6599e1522908f67b938d54e785bd1c36e302a0
+  languageName: node
+  linkType: hard
+
+"@types/filewriter@npm:*":
+  version: 0.0.29
+  resolution: "@types/filewriter@npm:0.0.29"
+  checksum: 0c58aa875c2c245be7dbc42b20212f3203e13d11ec013a4a5cd0febf0e8b87214be5882c05ff9d7bdf0398f145a4fdbc24b7e6cf7b094e134a3b4c7a0598502f
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:*":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
@@ -2665,6 +2690,7 @@ __metadata:
     tailwind-styled-components: ^2.2.0
     tailwindcss: ^3.2.4
     typescript: 4.9.3
+    webln: ^0.3.2
     yaml: ^2.2.1
   languageName: unknown
   linkType: soft
@@ -4180,6 +4206,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
+"webln@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "webln@npm:0.3.2"
+  dependencies:
+    "@types/chrome": ^0.0.74
+  checksum: 8aa2f773abb33baac8be824aeae2048fe04952bda98b8a21fc30b35ac8516cb6c85e4824390b199d467964b7df6bf34bbdc244443e7f0a3deaa433abed3f5dd0
   languageName: node
   linkType: hard
 
