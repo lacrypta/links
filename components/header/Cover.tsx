@@ -23,7 +23,7 @@ export const Cover = () => {
         damping: 20,
       }}
     >
-      <RoundButton className='absolute top-2 right-2 hidden' />
+      <RoundButton className='absolute top-2 right-2' />
     </MotionContainer>
   );
 };
