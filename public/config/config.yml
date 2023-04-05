@@ -38,3 +38,7 @@ blocks:
   - title: "Sitio Web"
     icon: "url"
     url: "https://www.lacrypta.com.ar/"
+
+ - title: "WhatsApp"
+    icon: "whatsapp"
+    url: "https://api.whatsapp.com/send/?phone=%2B541131080456&text=Hola+como+estan&type=phone_number&app_absent=0"
