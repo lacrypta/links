@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { getProfile } from "../lib/github";
 import { ThemeProvider } from "styled-components";
 import { generateTheme } from "../lib/theme";
+import { getUsers } from "../lib/users";
 
 interface HomeProps {
   config: Config;
@@ -91,15 +92,26 @@ export async function getServerSideProps(context: any) {
     try {
       const hostname = context.req.headers.host.split(".");
       const subdomain = hostname.shift();
+      let githubUser = subdomain;
       const domain = hostname.join(".");
       if (domain !== process.env.DOMAIN_MATCH) {
         throw new Error("Invalid DOMAIN_MATCH in .env");
       }
-      const url = `https://raw.githubusercontent.com/${subdomain}/.hodl.ar/main/config.yml`;
+
+      if (process.env.USERS_API_URL) {
+        const users = await getUsers();
+
+        const found = users.find((user: any) => user.id === subdomain);
+        if (found) {
+          githubUser = found.github;
+        }
+      }
+
+      const url = `https://raw.githubusercontent.com/${githubUser}/.hodl.ar/main/config.yml`;
 
       config = await fetchConfig(url);
       if (!config.main.picture) {
-        config.main.picture = (await getProfile(subdomain)).avatar_url;
+        config.main.picture = (await getProfile(githubUser)).avatar_url;
       }
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
