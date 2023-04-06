@@ -18,30 +18,27 @@ main:
 
 # Blocks list
 blocks:
-  - title: "Qué CARAJO es BITCOIN (31 de Marzo)"
-    icon: "url"
-    url: "https://www.eventbrite.com.ar/e/que-carj-es-bitcoin-tickets-593429442437"
+
+ -  title: "Discord"
+    icon: "discord"
+    url: "https://discord.lacrypta.com.ar"
+    
+  - title: "Twitter"
+    icon: "twitter"
+    url: "https://twitter.lacrypta.com.ar"
     
   - title: "Instagram"
     icon: "instagram"
     url: "https://instagram.lacrypta.com.ar"
 
-  - title: "Discord"
-    icon: "discord"
-    url: "https://discord.lacrypta.com.ar"
-
   - title: "Github"
     icon: "github"
     url: "https://github.lacrypta.com.ar"
-
-  - title: "Twitter"
-    icon: "twitter"
-    url: "https://twitter.lacrypta.com.ar"
 
   - title: "Sitio Web"
     icon: "url"
     url: "https://www.lacrypta.com.ar/"
 
-  - title: "WhatsApp"
+ - title: "WhatsApp"
     icon: "whatsapp"
     url: "https://api.whatsapp.com/send/?phone=%2B541131080456&text=Hola+como+estan&type=phone_number&app_absent=0"
