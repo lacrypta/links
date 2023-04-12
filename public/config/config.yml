@@ -19,7 +19,7 @@ main:
 # Blocks list
 blocks:
 
- -  title: "Discord"
+  - title: "Discord"
     icon: "discord"
     url: "https://discord.lacrypta.com.ar"
     
@@ -39,6 +39,10 @@ blocks:
     icon: "url"
     url: "https://www.lacrypta.com.ar/"
 
- - title: "WhatsApp"
+  - title: "WhatsApp"
     icon: "whatsapp"
     url: "https://api.whatsapp.com/send/?phone=%2B541131080456&text=Hola+como+estan&type=phone_number&app_absent=0"
+
+  - title: "Nostr"
+    icon: "nostr"
+    url: "https://iris.to/lacrypta@hodl.ar"
