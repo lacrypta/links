@@ -14,6 +14,7 @@ import {
 } from "react-icons/bs";
 import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
 import { IoMdHand } from "react-icons/io";
+import { GiOstrich } from "react-icons/gi";
 
 import TagManager from "react-gtm-module";
 
@@ -28,6 +29,7 @@ const socialIcon: { [key in Icon]: IconType } = {
   url: AiOutlineLink,
   linkedin: AiFillLinkedin,
   youtube: BsYoutube,
+  nostr: GiOstrich,
 };
 
 interface ILinkProps {
