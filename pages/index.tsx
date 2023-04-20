@@ -23,6 +23,7 @@ import { getProfile } from "../lib/github";
 import { ThemeProvider } from "styled-components";
 import { generateTheme } from "../lib/theme";
 import { getUsers } from "../lib/users";
+import MenuButton from "../components/header/menu/MenuButton";
 
 interface HomeProps {
   config: Config;
@@ -63,7 +64,15 @@ export default function Home({ config, error }: HomeProps) {
               damping: 20,
             }}
           >
-            <div className='sm:w-[800px] sm:mx-auto sm:max-w-lg'>
+            <div className='sm:w-[800px] relative sm:mx-auto sm:max-w-lg'>
+              <motion.div
+                className='absolute top-5 right-2 z-50'
+                initial={{ marginTop: 50, opacity: 0 }}
+                animate={{ marginTop: 0, opacity: 1 }}
+                transition={{ delay: 1.1 }}
+              >
+                <MenuButton />
+              </motion.div>
               <Cover />
               <Paper>
                 <Logo title={main.title} picture={main.picture} />
