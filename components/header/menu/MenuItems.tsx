@@ -1,15 +1,17 @@
 import { Menu, MenuItemsProps } from "@headlessui/react";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { MenuItem } from "../../../types/menu";
+import { useVerification } from "../../../contexts/Verification";
 
 export const MenuItems = (props: MenuItemsProps<typeof Menu.Items>) => {
+  const { showModal } = useVerification();
   // Menu Items
   const menuItems: MenuItem[] = [
     {
       label: "Verificar",
       icon: CheckBadgeIcon,
       onClick: () => {
-        alert("Under construction");
+        showModal();
       },
     },
   ];
