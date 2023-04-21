@@ -24,13 +24,15 @@ import { ThemeProvider } from "styled-components";
 import { generateTheme } from "../lib/theme";
 import { getUsers } from "../lib/users";
 import MenuButton from "../components/header/menu/MenuButton";
+import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 
 interface HomeProps {
   config: Config;
+  verified: boolean;
   error?: string | null;
 }
 
-export default function Home({ config, error }: HomeProps) {
+export default function Home({ config, verified, error }: HomeProps) {
   // Google Tag Manager
   useEffect(() => {
     if (!config?.html?.google_analytics) {
@@ -66,12 +68,20 @@ export default function Home({ config, error }: HomeProps) {
           >
             <div className='sm:w-[800px] relative sm:mx-auto sm:max-w-lg'>
               <motion.div
-                className='absolute top-5 right-2 z-50'
+                className={"absolute top-5 right-2 z-50"}
                 initial={{ marginTop: 50, opacity: 0 }}
                 animate={{ marginTop: 0, opacity: 1 }}
                 transition={{ delay: 1.1 }}
               >
-                <MenuButton />
+                {verified ? (
+                  <CheckBadgeIcon
+                    stroke='white'
+                    strokeWidth={0.8}
+                    className='h-7 w-7 text-blue-500 drop-shadow-lg'
+                  />
+                ) : (
+                  <MenuButton />
+                )}
               </motion.div>
               <Cover />
               <Paper>
@@ -133,6 +143,6 @@ export async function getServerSideProps(context: any) {
   }
 
   return {
-    props: { config, error },
+    props: { config, verified: !!process.env.VERIFIED, error },
   };
 }
