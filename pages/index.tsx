@@ -26,6 +26,8 @@ import MenuButton from "../components/header/menu/MenuButton";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { useConfig } from "../contexts/Config";
 import GitHubProvider from "../providers/github";
+import { ProviderType } from "../types/provider";
+import { ConfigProvider } from "../types/config";
 
 interface HomeProps {
   config: Config;
@@ -33,16 +35,13 @@ interface HomeProps {
   error?: string | null;
 }
 
-const supportedProviders = process.env.CONFIG_PROVIDERS
-  ? process.env.CONFIG_PROVIDERS.split(",")
-  : [];
-
 export default function Home({ config, verified, error }: HomeProps) {
   const { setConfig } = useConfig();
 
   // Sets config for provider
   useEffect(() => {
     setConfig(config);
+    // disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Google Tag Manager
@@ -116,18 +115,24 @@ export default function Home({ config, verified, error }: HomeProps) {
   );
 }
 
+const supportedProviders: { [key in ProviderType]: ConfigProvider } = {
+  github: GitHubProvider,
+};
+
 export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
+
   if (process.env.DOMAIN_MATCH) {
     try {
-      if (supportedProviders.length === 0) {
+      // Get config from provider (expected USERNAME.PROVIDER.hodl.ar)
+      if (process.env.CONFIG_FROM_PROVIDER) {
         const urlConfig = parseUrl(context.req.headers.host);
         if (!urlConfig) {
           throw new Error("Invalid url pattern");
         }
-
-        if (!supportedProviders.includes(urlConfig.provider)) {
+        const provider = supportedProviders[urlConfig.provider as ProviderType];
+        if (!provider) {
           throw new Error(`Provider "${urlConfig.provider}" not supported`);
         }
 
@@ -138,7 +143,7 @@ export async function getServerSideProps(context: any) {
           throw new Error("Invalid DOMAIN_MATCH in .env");
         }
 
-        config = await GitHubProvider.get(githubUser);
+        config = await provider.get(githubUser);
       } else {
         // Subdomain is HODL user
         const hostname = context.req.headers.host.split(".");
@@ -149,9 +154,10 @@ export async function getServerSideProps(context: any) {
           const users = await getUsers();
 
           const found = users.find((user: any) => user.id === subdomain);
-          if (found) {
-            githubUser = found.github;
+          if (!found) {
+            throw new Error("User not found");
           }
+          githubUser = found.github;
         }
       }
     } catch (e: any) {
@@ -160,6 +166,7 @@ export async function getServerSideProps(context: any) {
     }
   }
 
+  // Fallback to local config
   if (!config) {
     config = await readLocalConfig();
   }

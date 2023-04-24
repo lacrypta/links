@@ -1,4 +1,3 @@
-import { ProviderType } from "./provider";
 import { Block } from "./block";
 import { NostrConfig } from "./nostr";
 import { ThemeConfig } from "./theme";
@@ -18,6 +17,8 @@ export interface Config {
     picture?: string;
   };
   blocks: Block[];
+
+  raw?: any;
 }
 
 export interface UrlConfig {
