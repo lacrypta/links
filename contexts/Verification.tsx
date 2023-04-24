@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import VerificationModal from "../components/modals/VerificationModal";
+import VerificationModal from "../components/verification/VerificationModal";
 
 const VerificationContext = React.createContext({
   showModal: () => {},

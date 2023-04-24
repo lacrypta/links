@@ -2,7 +2,7 @@ import YAML from "yaml";
 import fs from "fs";
 import path from "path";
 
-import { Config } from "../types/config";
+import { Config, UrlConfig } from "../types/config";
 
 export async function fetchFileContents(url: string): Promise<string> {
   const res = await fetch(url);
@@ -41,4 +41,21 @@ export async function readLocalConfig() {
 
 export function capitalize(s: string) {
   return s && s[0].toUpperCase() + s.slice(1);
+}
+
+export function parseUrl(input: string): UrlConfig | null {
+  const regex = /^([\w-]+)\.([\w-]+)\.([\w-]+\.[\w-]+)$/;
+
+  const match = input.match(regex);
+
+  if (match) {
+    const [_, username, provider, host] = match;
+    return {
+      username,
+      provider,
+      host,
+    };
+  }
+
+  return null;
 }

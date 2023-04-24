@@ -18,3 +18,9 @@ export interface Config {
   };
   blocks: Block[];
 }
+
+export interface UrlConfig {
+  username: string;
+  provider: string;
+  host: string;
+}

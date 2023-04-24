@@ -25,6 +25,7 @@ import { generateTheme } from "../lib/theme";
 import { getUsers } from "../lib/users";
 import MenuButton from "../components/header/menu/MenuButton";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
+import { useConfig } from "../contexts/Config";
 
 interface HomeProps {
   config: Config;
@@ -33,6 +34,13 @@ interface HomeProps {
 }
 
 export default function Home({ config, verified, error }: HomeProps) {
+  const { setConfig } = useConfig();
+
+  // Sets config for provider
+  useEffect(() => {
+    setConfig(config);
+  }, []);
+
   // Google Tag Manager
   useEffect(() => {
     if (!config?.html?.google_analytics) {

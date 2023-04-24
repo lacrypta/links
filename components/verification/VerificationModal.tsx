@@ -1,6 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckBadgeIcon, LockOpenIcon } from "@heroicons/react/20/solid";
 import { Fragment, useCallback, useState } from "react";
+import { WelcomeStep } from "./steps/WelcomeStep";
+import UsernameStep from "./steps/UsernameStep";
+import InstructionsStep from "./steps/InstructionsStep";
+import CongratulationsStep from "./steps/Congratulations";
 
 interface VerificationModalProps {
   isOpen: boolean;
@@ -11,14 +15,38 @@ export const VerificationModal = ({
   isOpen,
   onClose,
 }: VerificationModalProps) => {
+  const [step, setStep] = useState(0);
+  const [username, setUsername] = useState("");
+
   const closeModal = useCallback(() => {
+    setTimeout(() => {
+      setStep(0);
+    }, 300);
+
     onClose();
   }, []);
 
   const next = useCallback(() => {
-    alert("En construcción");
-    onClose();
+    setStep((c) => ++c);
   }, []);
+
+  const assignUsername = useCallback((username: string) => {
+    setUsername(username);
+    next();
+  }, []);
+
+  const renderStepComponent = useCallback(() => {
+    switch (step) {
+      case 0:
+        return <WelcomeStep next={next} />;
+      case 1:
+        return <UsernameStep next={assignUsername} />;
+      case 2:
+        return <InstructionsStep username={username} next={next} />;
+      case 3:
+        return <CongratulationsStep username={username} />;
+    }
+  }, [step]);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -52,46 +80,11 @@ export const VerificationModal = ({
                 </div>
                 <Dialog.Title
                   as='h3'
-                  className='font-medium text-3xl leading-6 text-gray-900 text-center mb-5 mt-6'
+                  className='font-medium text-3xl leading-6 text-gray-900 text-center mb-5 mt-6 relative'
                 >
                   Verificación
                 </Dialog.Title>
-                <div className='mt-2 relative'>
-                  <p className='text-gray-500'>
-                    <h4 className='mt-3 mb-4 text-2xl text-center'>
-                      Vas a recibir
-                    </h4>
-
-                    <ul className='flex flex-col space-y-5 text-lg'>
-                      <li>- Una wallet de Lightning Network (Custodial)</li>
-                      <li>- Un usuario de NOSTR (Si no tenes uno ya)</li>
-                      <li>
-                        - Tu subdominio <b>.hodl.ar</b>
-                      </li>
-                      <li>
-                        <b>- TUNOMBRE</b>@hodl.ar para recibir sats
-                      </li>
-                      <li>
-                        <b>- TUNOMBRE</b>@hodl.ar como usuario en NOSTR
-                      </li>
-                    </ul>
-                  </p>
-                </div>
-
-                <div className='mt-4 text-center relative'>
-                  <button
-                    type='button'
-                    className='my-4 inline-flex items-center space-x-1 justify-center rounded-md border border-transparent bg-blue-100 px-6 py-4 text-md font-medium text-blue-900/50 hover:bg-blue-200 active:bg-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-                    onClick={next}
-                  >
-                    <LockOpenIcon
-                      className='text-blue-900/50'
-                      width={20}
-                      height={20}
-                    />
-                    <span>Reclamar Verificación</span>
-                  </button>
-                </div>
+                {renderStepComponent()}
               </Dialog.Panel>
             </Transition.Child>
           </div>
