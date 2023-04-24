@@ -1,3 +1,4 @@
+import { ProviderType } from "./provider";
 import { Block } from "./block";
 import { NostrConfig } from "./nostr";
 import { ThemeConfig } from "./theme";
@@ -23,4 +24,7 @@ export interface UrlConfig {
   username: string;
   provider: string;
   host: string;
+}
+export interface ConfigProvider {
+  get: (username: string) => Promise<Config>;
 }

@@ -44,7 +44,7 @@ export function capitalize(s: string) {
 }
 
 export function parseUrl(input: string): UrlConfig | null {
-  const regex = /^([\w-]+)\.([\w-]+)\.([\w-]+\.[\w-]+)$/;
+  const regex = /^([\w-]+)\.([\w-]+)\.([:\.\w-]+)$/;
 
   const match = input.match(regex);
 
