@@ -3,7 +3,6 @@ import {
   MagnifyingGlassCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { useCallback } from "react";
 import type { ProviderType } from "../../../types/provider";
 import GithubUsernameSetup from "../providers/github/UsernameSetup";
 import LocalUsernameSetup from "../providers/local/UsernameSetup";
