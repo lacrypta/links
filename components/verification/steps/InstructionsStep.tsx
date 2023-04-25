@@ -5,7 +5,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useCallback } from "react";
 import type { ProviderType } from "../../../types/provider";
-import UsernameSetup from "../providers/github/UsernameSetup";
+import GithubUsernameSetup from "../providers/github/UsernameSetup";
+import LocalUsernameSetup from "../providers/local/UsernameSetup";
 
 interface InstructionsStepProps {
   username: string;
@@ -13,7 +14,8 @@ interface InstructionsStepProps {
 }
 
 const providerComponents: { [key in ProviderType]: any } = {
-  github: () => UsernameSetup,
+  github: () => GithubUsernameSetup,
+  local: () => LocalUsernameSetup,
 };
 
 export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
