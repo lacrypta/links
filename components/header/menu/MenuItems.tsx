@@ -27,7 +27,7 @@ export const MenuItems = (props: MenuItemsProps<typeof Menu.Items>) => {
             {({ active }) => (
               <button
                 className={`${
-                  active ? "bg-[#ff7070] text-white" : "text-gray-900"
+                  active ? "bg-blue-400 text-white" : "text-gray-900"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 onClick={item.onClick}
               >
