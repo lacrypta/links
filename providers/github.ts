@@ -1,30 +1,30 @@
 import YAML from "yaml";
 import { fetchFileContents } from "../lib/utils";
 import { Config } from "../types/config";
-import { ConfigProvider } from "../types/provider";
+import { ConfigProvider } from "./abstract";
+import { ProviderType } from "../types/provider";
 
-interface IGitHubProvider extends ConfigProvider {
-  getProfile: (username: string) => Promise<any>;
-}
+export class GitHubProvider extends ConfigProvider {
+  static type: ProviderType = "github";
 
-export const GitHubProvider: IGitHubProvider = {
-  type: "github",
-  async get(username: string): Promise<Config> {
-    const url = `https://raw.githubusercontent.com/${username}/.hodl.ar/main/config.yml`;
+  constructor(username: string) {
+    super(GitHubProvider.type, username);
+  }
+
+  async get(): Promise<Config> {
+    const url = `https://raw.githubusercontent.com/${this.username}/.hodl.ar/main/config.yml`;
     let res = await fetchFileContents(url);
     let config = YAML.parse(res);
 
     if (!config.main.picture) {
-      config.main.picture = (
-        await GitHubProvider.getProfile(username)
-      ).avatar_url;
+      config.main.picture = (await this.getProfile()).avatar_url;
     }
 
     return config;
-  },
+  }
 
-  getProfile: async (username: string) => {
-    return fetch(`https://api.github.com/users/${username}`)
+  async getProfile(): Promise<any> {
+    return fetch(`https://api.github.com/users/${this.username}`)
       .then((res) => res.json())
       .then((profile) => {
         if (profile.message) {
@@ -32,7 +32,16 @@ export const GitHubProvider: IGitHubProvider = {
         }
         return profile;
       });
-  },
-};
+  }
+
+  public static createInstance(username: string): GitHubProvider {
+    return new GitHubProvider(username);
+  }
+
+  // Update the static register method to pass the class itself
+  public static register(): void {
+    ConfigProvider.registerProvider(GitHubProvider.type, GitHubProvider);
+  }
+}
 
 export default GitHubProvider;

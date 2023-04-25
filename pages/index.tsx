@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchConfig, parseUrl, readLocalConfig } from "../lib/utils";
+import { parseUrl, readLocalConfig } from "../lib/utils";
 import { Config } from "../types/config";
 
 // Components
@@ -25,21 +25,23 @@ import { getUsers } from "../lib/users";
 import MenuButton from "../components/header/menu/MenuButton";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { useConfig } from "../contexts/Config";
+import { ConfigProviderSerialized, ProviderType } from "../types/provider";
+import { ConfigProvider } from "../providers/abstract";
 import GitHubProvider from "../providers/github";
-import { ProviderType, ConfigProvider } from "../types/provider";
 import LocalProvider from "../providers/local";
 
 interface HomeProps {
   config: Config;
   verified: boolean;
-  provider: string;
+  provider: ConfigProviderSerialized;
   error?: string | null;
 }
 
-const supportedProviders: { [key in ProviderType]: ConfigProvider } = {
-  github: GitHubProvider,
-  local: LocalProvider,
-};
+// Register Config Providers
+GitHubProvider.register();
+LocalProvider.register();
+
+const supportedProviders = ConfigProvider.supportedProviders;
 
 export default function Home({ config, verified, provider, error }: HomeProps) {
   const { setConfig, setProvider } = useConfig();
@@ -47,7 +49,7 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
   // Sets config for provider
   useEffect(() => {
     setConfig(config);
-    setProvider(supportedProviders[provider as ProviderType]);
+    setProvider(ConfigProvider.fromJSON(provider) as ConfigProvider);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -125,7 +127,7 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
 export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
-  let provider = supportedProviders["local"]; // default
+  let provider: ConfigProvider = LocalProvider.createInstance("");
 
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -135,8 +137,12 @@ export async function getServerSideProps(context: any) {
         if (!urlConfig) {
           throw new Error("Invalid url pattern");
         }
-        provider = supportedProviders[urlConfig.provider as ProviderType];
-        if (!provider) {
+
+        const ProviderConstructor = supportedProviders.get(
+          urlConfig.provider as ProviderType
+        );
+
+        if (!ProviderConstructor) {
           throw new Error(`Provider "${urlConfig.provider}" not supported`);
         }
 
@@ -147,7 +153,9 @@ export async function getServerSideProps(context: any) {
           throw new Error("Invalid DOMAIN_MATCH in .env");
         }
 
-        config = await provider.get(githubUser);
+        provider = ProviderConstructor.createInstance(githubUser);
+
+        config = await provider.get();
       } else {
         // Subdomain is HODL user
         const hostname = context.req.headers.host.split(".");
@@ -179,7 +187,7 @@ export async function getServerSideProps(context: any) {
     props: {
       config,
       verified: !!process.env.VERIFIED,
-      provider: provider.type,
+      provider: provider.toJSON(),
       error,
     },
   };
