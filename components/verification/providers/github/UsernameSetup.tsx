@@ -40,7 +40,7 @@ export const UsernameSetup = ({ username }: UsernameSetupProps) => {
             <Comment># HODL username</Comment>
           </Line>
           <Line>
-            username: "<b>{username}</b>"
+            username: <b>{username}</b>
             <Comment> # TU_USUARIO@hodl.ar</Comment>
           </Line>
         </div>
