@@ -6,6 +6,8 @@ import {
 import type { ProviderType } from "../../../types/provider";
 import GithubUsernameSetup from "../providers/github/UsernameSetup";
 import LocalUsernameSetup from "../providers/local/UsernameSetup";
+import { useCallback, useState } from "react";
+import { useConfig } from "../../../contexts/Config";
 
 interface InstructionsStepProps {
   username: string;
@@ -19,6 +21,31 @@ const providerComponents: { [key in ProviderType]: any } = {
 
 export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
   const ProviderInstructions = providerComponents["github"]({});
+  const { refresh } = useConfig();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const verify = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const config = await refresh();
+
+      if (!config || !config.username) {
+        throw new Error("No se encontró el usuario en la configiuración");
+      }
+
+      if (config.username !== username) {
+        throw new Error("El usuario no coincide");
+      }
+
+      next();
+    } catch (e) {
+      alert((e as Error).message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   return (
     <>
@@ -36,14 +63,21 @@ export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
         <button
           type='button'
           className='my-4 inline-flex items-center space-x-1 justify-center rounded-md border border-transparent bg-blue-100 px-6 py-4 text-md font-medium text-blue-900/50 hover:bg-blue-200 active:bg-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-          onClick={next}
+          onClick={verify}
+          disabled={isLoading}
         >
-          <MagnifyingGlassIcon
-            className='text-blue-900/50'
-            width={20}
-            height={20}
-          />
-          <span>Verificar</span>
+          {isLoading ? (
+            "Verificando..."
+          ) : (
+            <>
+              <MagnifyingGlassIcon
+                className='text-blue-900/50'
+                width={20}
+                height={20}
+              />
+              <span>Verificar</span>
+            </>
+          )}
         </button>
       </div>
     </>
