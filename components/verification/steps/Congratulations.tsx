@@ -1,13 +1,15 @@
 import { LockOpenIcon } from "@heroicons/react/20/solid";
 import { useCallback } from "react";
+import Button from "../button";
 
 interface CongratulationsStepProps {
   username: string;
 }
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN_REDIRECT || "localhost:3001";
 export const CongratulationsStep = ({ username }: CongratulationsStepProps) => {
   const redirect = useCallback(() => {
-    alert("Yendooo");
+    window.location.href = `//${username}.${domain}`;
   }, []);
 
   return (
@@ -21,14 +23,13 @@ export const CongratulationsStep = ({ username }: CongratulationsStepProps) => {
       </div>
 
       <div className='mt-4 text-center relative'>
-        <button
-          type='button'
-          className='my-4 inline-flex items-center space-x-1 justify-center rounded-md border border-transparent bg-blue-100 px-6 py-4 text-md font-medium text-blue-900/50 hover:bg-blue-200 active:bg-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+        <Button
           onClick={redirect}
-        >
-          <LockOpenIcon className='text-blue-900/50' width={20} height={20} />
-          <span>Ir a mi página</span>
-        </button>
+          label='Ir a mi página'
+          prefix={
+            <LockOpenIcon className='text-blue-900/50' width={20} height={20} />
+          }
+        />
       </div>
     </>
   );
