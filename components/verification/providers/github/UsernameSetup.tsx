@@ -13,17 +13,21 @@ const Line = ({ children }: { children?: React.ReactNode }) => {
 };
 
 export const UsernameSetup = ({ username }: UsernameSetupProps) => {
-  const { config } = useConfig();
+  const { provider } = useConfig();
+  const githubUsername = provider?.getUsername();
   return (
     <div className='w-full'>
       <div>Asegurate de que tu username quede igual al ejemplo</div>
       <div>
         Hace click{" "}
-        <a
-          href={`https://github.com/${username}/.hodl.ar/edit/main/config.yml`}
-        >
-          ACÁ
-        </a>{" "}
+        <b>
+          <a
+            href={`https://github.com/${githubUsername}/.hodl.ar/edit/main/config.yml`}
+            target='_blank'
+          >
+            ACÁ
+          </a>
+        </b>{" "}
         para Editar el archivo.
       </div>
       <div className='bg-white border border-gray-500 p-2 text-sm w-full'>
@@ -40,8 +44,8 @@ export const UsernameSetup = ({ username }: UsernameSetupProps) => {
             <Comment># HODL username</Comment>
           </Line>
           <Line>
-            username: <b>{username}</b>
-            <Comment> # TU_USUARIO@hodl.ar</Comment>
+            username: &quot;<b>{username}</b>&quot;
+            <Comment> # &lt; TU_USUARIO@hodl.ar</Comment>
           </Line>
         </div>
       </div>
