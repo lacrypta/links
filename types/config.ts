@@ -24,6 +24,3 @@ export interface UrlConfig {
   provider: string;
   host: string;
 }
-export interface ConfigProvider {
-  get: (username: string) => Promise<Config>;
-}
