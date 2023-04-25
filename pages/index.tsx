@@ -93,18 +93,20 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
                 animate={{ marginTop: 0, opacity: 1 }}
                 transition={{ delay: 1.1 }}
               >
-                {verified ? (
-                  <CheckBadgeIcon
-                    stroke='white'
-                    strokeWidth={0.8}
-                    className='h-7 w-7 text-blue-500 drop-shadow-lg'
-                  />
-                ) : (
-                  <MenuButton />
-                )}
+                <MenuButton />
               </motion.div>
               <Cover />
               <Paper>
+                {verified && (
+                  <div className='absolute right-3 top-3'>
+                    <CheckBadgeIcon
+                      stroke='white'
+                      strokeWidth={0.8}
+                      className='h-7 w-7 text-blue-500 drop-shadow-md'
+                    />
+                  </div>
+                )}
+
                 <Logo title={main.title} picture={main.picture} />
                 <Title>{main?.title}</Title>
                 <div className='divide-y divide-gray-300/50'>
