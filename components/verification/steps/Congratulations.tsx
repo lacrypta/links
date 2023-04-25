@@ -10,7 +10,7 @@ const domain = process.env.NEXT_PUBLIC_DOMAIN_REDIRECT || "localhost:3001";
 export const CongratulationsStep = ({ username }: CongratulationsStepProps) => {
   const redirect = useCallback(() => {
     window.location.href = `//${username}.${domain}`;
-  }, []);
+  }, [username]);
 
   return (
     <>
