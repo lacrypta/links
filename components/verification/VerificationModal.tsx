@@ -24,7 +24,7 @@ export const VerificationModal = ({
     }, 300);
 
     onClose();
-    // disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const next = useCallback(() => {
@@ -34,7 +34,7 @@ export const VerificationModal = ({
   const assignUsername = useCallback((username: string) => {
     setUsername(username);
     next();
-    // disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderStepComponent = useCallback(() => {
@@ -48,7 +48,7 @@ export const VerificationModal = ({
       case 3:
         return <CongratulationsStep username={username} />;
     }
-    // disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, step]);
 
   return (
