@@ -17,8 +17,6 @@ export interface Config {
     picture?: string;
   };
   blocks: Block[];
-
-  raw?: any;
 }
 
 export interface UrlConfig {

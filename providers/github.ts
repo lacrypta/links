@@ -18,8 +18,6 @@ export const GitHubProvider: IGitHubProvider = {
       ).avatar_url;
     }
 
-    config.raw = res;
-
     return config;
   },
 
