@@ -32,9 +32,14 @@ import LocalProvider from "../providers/local";
 interface HomeProps {
   config: Config;
   verified: boolean;
-  provider: ConfigProvider;
+  provider: string;
   error?: string | null;
 }
+
+const supportedProviders: { [key in ProviderType]: ConfigProvider } = {
+  github: GitHubProvider,
+  local: LocalProvider,
+};
 
 export default function Home({ config, verified, provider, error }: HomeProps) {
   const { setConfig, setProvider } = useConfig();
@@ -42,8 +47,8 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
   // Sets config for provider
   useEffect(() => {
     setConfig(config);
-    setProvider(provider);
-    // disable-next-line react-hooks/exhaustive-deps
+    setProvider(supportedProviders[provider as ProviderType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Google Tag Manager
@@ -117,15 +122,10 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
   );
 }
 
-const supportedProviders: { [key in ProviderType]: ConfigProvider } = {
-  github: GitHubProvider,
-  local: LocalProvider,
-};
-
 export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
-  let provider;
+  let provider = supportedProviders["local"]; // default
 
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -172,11 +172,15 @@ export async function getServerSideProps(context: any) {
 
   // Fallback to local config
   if (!config) {
-    provider = supportedProviders["local"];
     config = await readLocalConfig();
   }
 
   return {
-    props: { config, verified: !!process.env.VERIFIED, provider, error },
+    props: {
+      config,
+      verified: !!process.env.VERIFIED,
+      provider: provider.type,
+      error,
+    },
   };
 }
