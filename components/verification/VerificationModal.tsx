@@ -47,12 +47,12 @@ export const VerificationModal = ({
       case 2:
         return <InstructionsStep username={username} next={next} />;
       case 3:
-        return <WalletConfigStep username={username} next={next} />;
+        return <WalletConfigStep next={next} />;
       case 4:
         return <CongratulationsStep username={username} />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username, step]);
+  }, [username, step, next]);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
