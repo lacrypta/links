@@ -162,7 +162,7 @@ export async function getServerSideProps(context: any) {
         const subdomain = hostname.shift();
         let githubUser = subdomain;
 
-        if (process.env.USERS_API_URL) {
+        if (process.env.NEXT_PUBLIC_USERS_API_URL) {
           const users = await getUsers();
 
           const found = users.find((user: any) => user.id === subdomain);
