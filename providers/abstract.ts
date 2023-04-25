@@ -22,8 +22,8 @@ export abstract class ConfigProvider {
 
   public abstract get(): Promise<Config>;
 
-  public getType(): string {
-    return this.type;
+  public getType(): ProviderType {
+    return this.type as ProviderType;
   }
 
   public getUsername(): string {
