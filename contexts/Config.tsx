@@ -6,7 +6,7 @@ interface IConfigContext {
   config?: Config;
   provider?: ConfigProviderType;
   setConfig: React.Dispatch<React.SetStateAction<Config | undefined>>;
-  refresh: () => void;
+  refresh: () => Promise<Config | null>;
   setProvider: React.Dispatch<
     React.SetStateAction<ConfigProviderType | undefined>
   >;
@@ -14,7 +14,7 @@ interface IConfigContext {
 
 const ConfigContext = React.createContext<IConfigContext>({
   setConfig: () => {},
-  refresh: () => {},
+  refresh: () => Promise.resolve(null),
   setProvider: () => {},
 });
 
@@ -26,7 +26,14 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
   const [config, setConfig] = useState<Config>();
   const [provider, setProvider] = useState<ConfigProviderType>();
 
-  const refresh = useCallback(() => {}, []);
+  const refresh = useCallback(async (): Promise<Config | null> => {
+    if (!provider) {
+      return null;
+    }
+    const _config = await provider.get();
+    setConfig(_config);
+    return _config;
+  }, [provider]);
 
   return (
     <ConfigContext.Provider
