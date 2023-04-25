@@ -26,21 +26,23 @@ import MenuButton from "../components/header/menu/MenuButton";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { useConfig } from "../contexts/Config";
 import GitHubProvider from "../providers/github";
-import { ProviderType } from "../types/provider";
-import { ConfigProvider } from "../types/config";
+import { ProviderType, ConfigProvider } from "../types/provider";
+import LocalProvider from "../providers/local";
 
 interface HomeProps {
   config: Config;
   verified: boolean;
+  provider: ConfigProvider;
   error?: string | null;
 }
 
-export default function Home({ config, verified, error }: HomeProps) {
-  const { setConfig } = useConfig();
+export default function Home({ config, verified, provider, error }: HomeProps) {
+  const { setConfig, setProvider } = useConfig();
 
   // Sets config for provider
   useEffect(() => {
     setConfig(config);
+    setProvider(provider);
     // disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -117,11 +119,13 @@ export default function Home({ config, verified, error }: HomeProps) {
 
 const supportedProviders: { [key in ProviderType]: ConfigProvider } = {
   github: GitHubProvider,
+  local: LocalProvider,
 };
 
 export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
+  let provider;
 
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -131,7 +135,7 @@ export async function getServerSideProps(context: any) {
         if (!urlConfig) {
           throw new Error("Invalid url pattern");
         }
-        const provider = supportedProviders[urlConfig.provider as ProviderType];
+        provider = supportedProviders[urlConfig.provider as ProviderType];
         if (!provider) {
           throw new Error(`Provider "${urlConfig.provider}" not supported`);
         }
@@ -168,10 +172,11 @@ export async function getServerSideProps(context: any) {
 
   // Fallback to local config
   if (!config) {
+    provider = supportedProviders["local"];
     config = await readLocalConfig();
   }
 
   return {
-    props: { config, verified: !!process.env.VERIFIED, error },
+    props: { config, verified: !!process.env.VERIFIED, provider, error },
   };
 }
