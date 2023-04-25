@@ -1,4 +1,8 @@
-import { LockOpenIcon } from "@heroicons/react/20/solid";
+import {
+  LockOpenIcon,
+  MagnifyingGlassCircleIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/20/solid";
 import { useCallback } from "react";
 import type { ProviderType } from "../../../types/provider";
 import UsernameSetup from "../providers/github/UsernameSetup";
@@ -13,7 +17,7 @@ const providerComponents: { [key in ProviderType]: any } = {
 };
 
 export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
-  const ProviderInstructions = providerComponents["github"]({ username });
+  const ProviderInstructions = providerComponents["github"]({});
 
   return (
     <>
@@ -23,7 +27,7 @@ export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
             Completá la verificación
           </h4>
 
-          <ProviderInstructions />
+          <ProviderInstructions username={username} />
         </div>
       </div>
 
@@ -33,7 +37,11 @@ export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
           className='my-4 inline-flex items-center space-x-1 justify-center rounded-md border border-transparent bg-blue-100 px-6 py-4 text-md font-medium text-blue-900/50 hover:bg-blue-200 active:bg-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
           onClick={next}
         >
-          <LockOpenIcon className='text-blue-900/50' width={20} height={20} />
+          <MagnifyingGlassIcon
+            className='text-blue-900/50'
+            width={20}
+            height={20}
+          />
           <span>Verificar</span>
         </button>
       </div>
