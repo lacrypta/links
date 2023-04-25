@@ -9,7 +9,7 @@ const API_ENPOINT =
   process.env.NEXT_PUBLIC_USERS_API_URL || "https://hodl.ar/api/users";
 
 export const getUsers = async () => {
-  return fetch(`${API_ENPOINT}/users`)
+  return fetch(`${API_ENPOINT}`)
     .then((res) => res.json())
     .then((data) => {
       return data;
