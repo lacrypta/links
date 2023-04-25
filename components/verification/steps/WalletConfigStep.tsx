@@ -20,11 +20,13 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
 
   const { provider } = useConfig();
 
-  if (!provider) {
-    return <div>Provider not found</div>;
-  }
-
   useEffect(() => {
+    if (!provider) {
+      setError("No provider");
+      setIsLoading(false);
+      return;
+    }
+
     setError(undefined);
     createUser(provider.getUsername(), provider.getType())
       .then(setUserData)
@@ -34,7 +36,7 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [provider]);
 
   return (
     <>

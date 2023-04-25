@@ -5,6 +5,7 @@ import { WelcomeStep } from "./steps/WelcomeStep";
 import UsernameStep from "./steps/UsernameStep";
 import InstructionsStep from "./steps/InstructionsStep";
 import CongratulationsStep from "./steps/Congratulations";
+import WalletConfigStep from "./steps/WalletConfigStep";
 
 interface VerificationModalProps {
   isOpen: boolean;
@@ -46,6 +47,8 @@ export const VerificationModal = ({
       case 2:
         return <InstructionsStep username={username} next={next} />;
       case 3:
+        return <WalletConfigStep username={username} next={next} />;
+      case 4:
         return <CongratulationsStep username={username} />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

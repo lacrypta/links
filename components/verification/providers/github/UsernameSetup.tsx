@@ -24,6 +24,7 @@ export const UsernameSetup = ({ username }: UsernameSetupProps) => {
           <a
             href={`https://github.com/${githubUsername}/.hodl.ar/edit/main/config.yml`}
             target='_blank'
+            rel='noreferrer'
           >
             ACÁ
           </a>
