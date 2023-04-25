@@ -1,12 +1,14 @@
 import YAML from "yaml";
 import { fetchFileContents } from "../lib/utils";
-import { Config, ConfigProvider } from "../types/config";
+import { Config } from "../types/config";
+import { ConfigProvider } from "../types/provider";
 
 interface IGitHubProvider extends ConfigProvider {
   getProfile: (username: string) => Promise<any>;
 }
 
 export const GitHubProvider: IGitHubProvider = {
+  type: "github",
   async get(username: string): Promise<Config> {
     const url = `https://raw.githubusercontent.com/${username}/.hodl.ar/main/config.yml`;
     let res = await fetchFileContents(url);
