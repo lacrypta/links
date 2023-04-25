@@ -156,21 +156,23 @@ export async function getServerSideProps(context: any) {
         provider = ProviderConstructor.createInstance(githubUser);
 
         config = await provider.get();
-      } else {
+      } else if (process.env.VERIFIED) {
         // Subdomain is HODL user
         const hostname = context.req.headers.host.split(".");
         const subdomain = hostname.shift();
-        let githubUser = subdomain;
 
-        if (process.env.NEXT_PUBLIC_USERS_API_URL) {
-          const users = await getUsers();
+        // TODO: Query single user
+        const users = await getUsers();
 
-          const found = users.find((user: any) => user.id === subdomain);
-          if (!found) {
-            throw new Error("User not found");
-          }
-          githubUser = found.github;
+        const found = users.find((user: any) => user.id === subdomain);
+        if (!found) {
+          throw new Error("User not found on HODL.ar");
         }
+
+        const githubUser = found.github;
+
+        provider = GitHubProvider.createInstance(githubUser);
+        config = await provider.get();
       }
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
