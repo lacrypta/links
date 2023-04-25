@@ -1,9 +1,3 @@
-declare global {
-  interface Window {
-    webln: any;
-  }
-}
-
 import { useEffect } from "react";
 
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
@@ -20,22 +14,6 @@ export const MenuButton = ({ className }: MenuButtonProps) => {
       return;
     }
   }, []);
-
-  const connect = async () => {
-    try {
-      if (!window.webln.enabled) {
-        await window.webln.enable();
-      }
-
-      // const res = await window.webln.lnurl("YOUR_LN_URL");
-      // console.dir(res);
-      alert("DONE");
-    } catch (err: any) {
-      // Tell the user what went wrong
-      console.dir(err);
-      alert(err.message);
-    }
-  };
 
   return (
     <Menu as='div' className='relative inline-block text-left'>
