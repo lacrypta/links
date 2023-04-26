@@ -1,27 +1,30 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckBadgeIcon, LockOpenIcon } from "@heroicons/react/20/solid";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { WelcomeStep } from "./steps/WelcomeStep";
 import UsernameStep from "./steps/UsernameStep";
 import InstructionsStep from "./steps/InstructionsStep";
 import CongratulationsStep from "./steps/Congratulations";
 import WalletConfigStep from "./steps/WalletConfigStep";
+import ExtensionSetupStep from "./steps/ExtensionSetup";
 
 interface VerificationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  startingStep: number;
 }
 
 export const VerificationModal = ({
   isOpen,
   onClose,
+  startingStep,
 }: VerificationModalProps) => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(startingStep);
   const [username, setUsername] = useState("");
 
   const closeModal = useCallback(() => {
     setTimeout(() => {
-      setStep(0);
+      setStep(startingStep);
     }, 300);
 
     onClose();
@@ -38,6 +41,10 @@ export const VerificationModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setStep(startingStep);
+  }, [startingStep]);
+
   const renderStepComponent = useCallback(() => {
     switch (step) {
       case 0:
@@ -50,6 +57,8 @@ export const VerificationModal = ({
         return <WalletConfigStep next={next} />;
       case 4:
         return <CongratulationsStep username={username} />;
+      case 5:
+        return <ExtensionSetupStep />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, step, next]);

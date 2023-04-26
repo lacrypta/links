@@ -72,7 +72,7 @@ export const MenuButton = ({ className }: MenuButtonProps) => {
             label: "Configurar Nostr",
             icon: GiOstrich,
             onClick: () => {
-              alert("En contrucción");
+              showModal(5);
             },
           });
         }
