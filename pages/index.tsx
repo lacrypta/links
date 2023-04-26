@@ -30,6 +30,7 @@ import { ConfigProvider } from "../providers/abstract";
 import GitHubProvider from "../providers/github";
 import LocalProvider from "../providers/local";
 import { User } from "../types/user";
+import { useAccount } from "../contexts/Account";
 
 interface HomeProps {
   config: Config;
@@ -45,7 +46,8 @@ LocalProvider.register();
 const supportedProviders = ConfigProvider.supportedProviders;
 
 export default function Home({ config, provider, userData, error }: HomeProps) {
-  const { setConfig, setProvider, setUserData } = useConfig();
+  const { setConfig, setProvider } = useConfig();
+  const { setUserData } = useAccount();
 
   // Sets config for provider
   useEffect(() => {

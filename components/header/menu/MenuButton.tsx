@@ -12,6 +12,7 @@ import { useVerification } from "../../../contexts/Verification";
 import MenuItem from "./MenuItem";
 import { useConfig } from "../../../contexts/Config";
 import { GiOstrich } from "react-icons/gi";
+import { useAccount } from "../../../contexts/Account";
 
 interface MenuButtonProps {
   className?: string;
@@ -19,7 +20,11 @@ interface MenuButtonProps {
 
 export const MenuButton = ({ className }: MenuButtonProps) => {
   const { showModal } = useVerification();
-  const { config, userData } = useConfig();
+  const { config } = useConfig();
+  const { userData } = useAccount();
+
+  console.info("userData:");
+  console.dir(userData);
 
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
