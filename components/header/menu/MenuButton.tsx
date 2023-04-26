@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import {
   CheckBadgeIcon,
+  Cog6ToothIcon,
   EllipsisVerticalIcon,
+  UserCircleIcon,
 } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 
 import { MenuItem as IMenuItem } from "../../../types/menu";
 import { useVerification } from "../../../contexts/Verification";
 import MenuItem from "./MenuItem";
+import { useConfig } from "../../../contexts/Config";
+import { GiOstrich } from "react-icons/gi";
 
 interface MenuButtonProps {
   className?: string;
@@ -15,27 +19,66 @@ interface MenuButtonProps {
 
 export const MenuButton = ({ className }: MenuButtonProps) => {
   const { showModal } = useVerification();
+  const { config, userData } = useConfig();
 
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || !config) {
       return;
     }
 
     const _menuItems: IMenuItem[] = [];
 
-    _menuItems.push({
-      label: "Verificar",
-      icon: CheckBadgeIcon,
-      onClick: () => {
-        showModal();
-      },
-    });
+    if (!config?.verified) {
+      _menuItems.push({
+        label: "Verificar",
+        icon: CheckBadgeIcon,
+        onClick: () => {
+          showModal();
+        },
+      });
+    } else {
+      // Already Verified
+
+      // Already has npub assigned
+      if (userData?.npub) {
+        _menuItems.push({
+          label: "Configurar",
+          icon: Cog6ToothIcon,
+          onClick: () => {
+            alert("En contrucción");
+          },
+        });
+      } else {
+        // User is not registered
+
+        // Nostr pub detected on config
+        if (config.nostr?.npub) {
+          _menuItems.push({
+            label: "Registrar npub (Nostr)",
+            icon: UserCircleIcon,
+            onClick: () => {
+              alert("En contrucción");
+            },
+          });
+        } else {
+          _menuItems.push({
+            label: "Configurar Nostr",
+            icon: GiOstrich,
+            onClick: () => {
+              alert("En contrucción");
+            },
+          });
+        }
+      }
+    }
+
+    console.dir(userData);
 
     setMenuItems(_menuItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [config]);
 
   return menuItems.length > 0 ? (
     <Menu as='div' className='relative inline-block text-left'>
