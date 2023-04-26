@@ -1,3 +1,6 @@
+import AlbyDetected from "../widgets/AlbyDetected";
+import AlbyNotDetected from "../widgets/AlbyNotDetected";
+
 interface ExtensionSetupStepProps {
   //   username: string;
 }
@@ -9,8 +12,7 @@ export const ExtensionSetupStep = ({}: ExtensionSetupStepProps) => {
       <div className='mt-2 relative'>
         <div className='text-gray-500'>
           <h4 className='mt-3 mb-4 text-2xl text-center'>Extensión</h4>
-
-          <div>Bajate Alby</div>
+          {window.webln ? <AlbyDetected /> : <AlbyNotDetected />}
         </div>
       </div>
     </>
