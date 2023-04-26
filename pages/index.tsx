@@ -32,7 +32,6 @@ import LocalProvider from "../providers/local";
 
 interface HomeProps {
   config: Config;
-  verified: boolean;
   provider: ConfigProviderSerialized;
   error?: string | null;
 }
@@ -43,7 +42,7 @@ LocalProvider.register();
 
 const supportedProviders = ConfigProvider.supportedProviders;
 
-export default function Home({ config, verified, provider, error }: HomeProps) {
+export default function Home({ config, provider, error }: HomeProps) {
   const { setConfig, setProvider } = useConfig();
 
   // Sets config for provider
@@ -97,7 +96,7 @@ export default function Home({ config, verified, provider, error }: HomeProps) {
               </motion.div>
               <Cover />
               <Paper>
-                {verified && (
+                {config.verified && (
                   <div className='absolute right-3 top-3'>
                     <CheckBadgeIcon
                       stroke='white'
@@ -187,10 +186,11 @@ export async function getServerSideProps(context: any) {
     config = await readLocalConfig();
   }
 
+  (config as Config).verified = !!process.env.VERIFIED;
+
   return {
     props: {
       config,
-      verified: !!process.env.VERIFIED,
       provider: provider.toJSON(),
       error,
     },

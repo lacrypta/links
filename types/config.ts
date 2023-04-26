@@ -17,6 +17,7 @@ export interface Config {
     picture?: string;
   };
   blocks: Block[];
+  verified?: boolean;
 }
 
 export interface UrlConfig {
