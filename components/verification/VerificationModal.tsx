@@ -29,7 +29,7 @@ export const VerificationModal = ({
 
     onClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [startingStep]);
 
   const next = useCallback(() => {
     setStep((c) => ++c);
