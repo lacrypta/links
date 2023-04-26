@@ -427,6 +427,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:1.2.0, @noble/hashes@npm:~1.2.0":
+  version: 1.2.0
+  resolution: "@noble/hashes@npm:1.2.0"
+  checksum: 8ca080ce557b8f40fb2f78d3aedffd95825a415ac8e13d7ffe3643f8626a8c2d99a3e5975b555027ac24316d8b3c02a35b8358567c0c23af681e6573602aa434
+  languageName: node
+  linkType: hard
+
+"@noble/secp256k1@npm:1.7.1, @noble/secp256k1@npm:~1.7.0":
+  version: 1.7.1
+  resolution: "@noble/secp256k1@npm:1.7.1"
+  checksum: d2301f1f7690368d8409a3152450458f27e54df47e3f917292de3de82c298770890c2de7c967d237eff9c95b70af485389a9695f73eb05a43e2bd562d18b18cb
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -478,6 +492,34 @@ __metadata:
   version: 1.2.0
   resolution: "@rushstack/eslint-patch@npm:1.2.0"
   checksum: faa749faae0e83c26ae9eb00ad36a897ac78f3cf27da8e8ff21c00bcf7973b598d823d8f2b3957ef66079288bcf577f94df831eae2d65f3f68d8ca32f18b6aff
+  languageName: node
+  linkType: hard
+
+"@scure/base@npm:1.1.1, @scure/base@npm:~1.1.0":
+  version: 1.1.1
+  resolution: "@scure/base@npm:1.1.1"
+  checksum: b4fc810b492693e7e8d0107313ac74c3646970c198bbe26d7332820886fa4f09441991023ec9aa3a2a51246b74409ab5ebae2e8ef148bbc253da79ac49130309
+  languageName: node
+  linkType: hard
+
+"@scure/bip32@npm:1.1.4":
+  version: 1.1.4
+  resolution: "@scure/bip32@npm:1.1.4"
+  dependencies:
+    "@noble/hashes": ~1.2.0
+    "@noble/secp256k1": ~1.7.0
+    "@scure/base": ~1.1.0
+  checksum: f95378cd8d0307620d8a37e4adb0c90496f20bc6ede05c86fc8b6a17e0300a073d25f6ea27cbbbe828c9d39976e19a80857152211ef06f9c0c22ad9cd706b92d
+  languageName: node
+  linkType: hard
+
+"@scure/bip39@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@scure/bip39@npm:1.1.1"
+  dependencies:
+    "@noble/hashes": ~1.2.0
+    "@scure/base": ~1.1.0
+  checksum: fbb594c50696fa9c14e891d872f382e50a3f919b6c96c55ef2fb10c7102c546dafb8f099a62bd114c12a00525b595dcf7381846f383f0ddcedeaa6e210747d2f
   languageName: node
   linkType: hard
 
@@ -668,6 +710,13 @@ __metadata:
     "@typescript-eslint/types": 5.55.0
     eslint-visitor-keys: ^3.3.0
   checksum: 0b24c72dff99dd2cf41c19d20067f8ab20a38aa2e82c79c5530bec7cf651031e95c80702fc21c813c9b94e5f3d4cd210f13967b2966ef38abe548cb5f05848a3
+  languageName: node
+  linkType: hard
+
+"@webbtc/webln-types@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@webbtc/webln-types@npm:1.0.10"
+  checksum: d3081a1d8fc9570ebaa0c973cc1edb4e9bbb32f0142a780bd018b36fe44337fd3cc0909d9d06ce9d62185bbc0482c2e5ee17a6af976741f1e8d2ed545b6c71ef
   languageName: node
   linkType: hard
 
@@ -2754,6 +2803,7 @@ __metadata:
     "@types/react-dom": 18.0.9
     "@types/react-gtm-module": ^2.0.1
     "@types/styled-components": ^5.1.26
+    "@webbtc/webln-types": ^1.0.10
     autoprefixer: ^10.4.13
     eslint: 8.27.0
     eslint-config-next: 13.0.3
@@ -2761,6 +2811,7 @@ __metadata:
     fs: ^0.0.1-security
     next: 13.0.3
     next-qrcode: ^2.4.1
+    nostr-tools: ^1.10.1
     postcss: ^8.4.19
     react: 18.2.0
     react-dom: 18.2.0
@@ -3185,6 +3236,19 @@ __metadata:
   version: 0.1.2
   resolution: "normalize-range@npm:0.1.2"
   checksum: 9b2f14f093593f367a7a0834267c24f3cb3e887a2d9809c77d8a7e5fd08738bcd15af46f0ab01cc3a3d660386f015816b5c922cea8bf2ee79777f40874063184
+  languageName: node
+  linkType: hard
+
+"nostr-tools@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "nostr-tools@npm:1.10.1"
+  dependencies:
+    "@noble/hashes": 1.2.0
+    "@noble/secp256k1": 1.7.1
+    "@scure/base": 1.1.1
+    "@scure/bip32": 1.1.4
+    "@scure/bip39": 1.1.1
+  checksum: 414976d98e1876540c9cda19658cf629f00e3114d3e34944f2c700871f1a2006dda0f9523470cc26eb2c24ce85abbb398ead1a0e1daa2b774de3d6a4271b31ae
   languageName: node
   linkType: hard
 
