@@ -23,9 +23,6 @@ export const MenuButton = ({ className }: MenuButtonProps) => {
   const { config } = useConfig();
   const { userData } = useAccount();
 
-  console.info("userData:");
-  console.dir(userData);
-
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
   useEffect(() => {
