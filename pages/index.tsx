@@ -29,10 +29,12 @@ import { ConfigProviderSerialized, ProviderType } from "../types/provider";
 import { ConfigProvider } from "../providers/abstract";
 import GitHubProvider from "../providers/github";
 import LocalProvider from "../providers/local";
+import { User } from "../types/user";
 
 interface HomeProps {
   config: Config;
   provider: ConfigProviderSerialized;
+  userData: User;
   error?: string | null;
 }
 
@@ -42,12 +44,13 @@ LocalProvider.register();
 
 const supportedProviders = ConfigProvider.supportedProviders;
 
-export default function Home({ config, provider, error }: HomeProps) {
-  const { setConfig, setProvider } = useConfig();
+export default function Home({ config, provider, userData, error }: HomeProps) {
+  const { setConfig, setProvider, setUserData } = useConfig();
 
   // Sets config for provider
   useEffect(() => {
     setConfig(config);
+    setUserData(userData);
     setProvider(ConfigProvider.fromJSON(provider) as ConfigProvider);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -129,6 +132,7 @@ export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
   let provider: ConfigProvider = LocalProvider.createInstance("");
+  let userData: User | undefined = undefined;
 
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -165,12 +169,12 @@ export async function getServerSideProps(context: any) {
         // TODO: Query single user
         const users = await getUsers();
 
-        const found = users.find((user: any) => user.id === subdomain);
-        if (!found) {
+        userData = users.find((user: any) => user.id === subdomain);
+        if (!userData) {
           throw new Error("User not found on HODL.ar");
         }
 
-        const githubUser = found.github;
+        const githubUser = userData.github as string;
 
         provider = GitHubProvider.createInstance(githubUser);
         config = await provider.get();
@@ -192,6 +196,7 @@ export async function getServerSideProps(context: any) {
     props: {
       config,
       provider: provider.toJSON(),
+      userData,
       error,
     },
   };
