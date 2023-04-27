@@ -24,7 +24,9 @@ export class GitHubProvider extends ConfigProvider {
   }
 
   async getProfile(): Promise<any> {
-    return fetch(`https://api.github.com/users/${this.username}`)
+    return fetch(`https://api.github.com/users/${this.username}`, {
+      cache: "reload",
+    })
       .then((res) => res.json())
       .then((profile) => {
         if (profile.message) {

@@ -5,7 +5,7 @@ import path from "path";
 import { Config, UrlConfig } from "../types/config";
 
 export async function fetchFileContents(url: string): Promise<string> {
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "reload" });
 
   if (!res.ok) {
     throw new Error(`Remote file not found (${url})`);
