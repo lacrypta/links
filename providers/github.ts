@@ -13,7 +13,7 @@ export class GitHubProvider extends ConfigProvider {
 
   async get(): Promise<Config> {
     const url = `https://raw.githubusercontent.com/${this.username}/.hodl.ar/main/config.yml`;
-    let res = await fetchFileContents(url);
+    const res = await fetchFileContents(url);
     let config = YAML.parse(res);
 
     if (!config.main.picture) {
