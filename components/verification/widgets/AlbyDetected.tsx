@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import NostrExtensionProvider from "../../../types/nostr";
 import NostrDetected from "./NostrDetected";
+import { useVerification } from "../../../contexts/Verification";
 
 // Global window.nostr
 declare global {
@@ -9,6 +11,11 @@ declare global {
 }
 
 export const AlbyDetected = () => {
+  const { setStep } = useVerification();
+  useEffect(() => {
+    setStep(6);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.nostr]);
   return (
     <div>
       <div>
