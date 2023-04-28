@@ -14,11 +14,9 @@ export const NostrDetected = () => {
   return npub ? (
     <NostrValidate npub={npub} />
   ) : (
-    <div>
+    <div className='flex flex-col'>
       <div>Conectate a NOSTR</div>
-      <div>
-        <Button label='Conectar' onClick={() => connect()} />
-      </div>
+      <Button label='Conectar' onClick={() => connect()} />
     </div>
   );
 };

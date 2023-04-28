@@ -1,4 +1,6 @@
+import { useCallback, useEffect, useState } from "react";
 import { useConfig } from "../../../../contexts/Config";
+import Button from "../../button";
 
 interface NostrValidateProps {
   npub: string;
@@ -13,10 +15,26 @@ const Line = ({ children }: { children?: React.ReactNode }) => {
 };
 
 export const NostrValidate = ({ npub }: NostrValidateProps) => {
-  const { provider } = useConfig();
+  const { config, provider, refresh } = useConfig();
   const githubUsername = provider?.getUsername();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const verify = useCallback(async () => {
+    setIsLoading(true);
+    await refresh();
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.info("config:");
+    console.dir(config);
+    if (config?.nostr?.npub === npub) {
+      alert("OHHHH YEAHHHH!!!");
+    }
+  }, [config]);
   return (
-    <div className='w-full'>
+    <div className='w-full flex flex-col'>
       <div>
         Asegurate de reemplazar <b>YOUR_NPUB</b> por
       </div>
@@ -50,6 +68,7 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
           </div>
         </div>
       </div>
+      <Button label='Verificar' disabled={isLoading} onClick={() => verify()} />
     </div>
   );
 };
