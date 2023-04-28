@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckBadgeIcon, LockOpenIcon } from "@heroicons/react/20/solid";
+import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { WelcomeStep } from "./steps/WelcomeStep";
 import UsernameStep from "./steps/UsernameStep";
@@ -7,20 +7,22 @@ import InstructionsStep from "./steps/InstructionsStep";
 import CongratulationsStep from "./steps/Congratulations";
 import WalletConfigStep from "./steps/WalletConfigStep";
 import ExtensionSetupStep from "./steps/ExtensionSetup";
+import { useVerification } from "../../contexts/Verification";
+import NostrStep from "./steps/NostrStep";
 
 interface VerificationModalProps {
   isOpen: boolean;
-  onClose: () => void;
   startingStep: number;
+  onClose: () => void;
 }
 
 export const VerificationModal = ({
   isOpen,
-  onClose,
   startingStep,
+  onClose,
 }: VerificationModalProps) => {
-  const [step, setStep] = useState(startingStep);
   const [username, setUsername] = useState("");
+  const { step, setStep } = useVerification();
 
   const closeModal = useCallback(() => {
     setTimeout(() => {
@@ -33,6 +35,7 @@ export const VerificationModal = ({
 
   const next = useCallback(() => {
     setStep((c) => ++c);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const assignUsername = useCallback((username: string) => {
@@ -59,6 +62,8 @@ export const VerificationModal = ({
         return <CongratulationsStep username={username} />;
       case 5:
         return <ExtensionSetupStep />;
+      case 6:
+        return <NostrStep />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, step, next]);
@@ -89,7 +94,7 @@ export const VerificationModal = ({
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-14 py-3 text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-4 py-3 text-left align-middle shadow-xl transition-all'>
                 <div className='absolute -top-1/4 left-1/3 opacity-5 text-blue-900'>
                   <CheckBadgeIcon width={400} height={400} />
                 </div>
