@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { User } from "../types/user";
 
 interface IAccountContext {
-  userData?: User;
-  setUserData: React.Dispatch<React.SetStateAction<User | undefined>>;
+  userData: User | null;
+  setUserData: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 const AccountContext = React.createContext<IAccountContext>({
+  userData: null,
   setUserData: () => {},
 });
 
@@ -15,7 +16,7 @@ interface AccountProviderProps {
 }
 
 export const AccountProvider = ({ children }: AccountProviderProps) => {
-  const [userData, setUserData] = useState<User>();
+  const [userData, setUserData] = useState<User | null>(null);
 
   return (
     <AccountContext.Provider

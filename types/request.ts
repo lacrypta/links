@@ -5,16 +5,17 @@ export interface ResponseDataType {
 }
 
 export interface UserData {
-  username: string;
-  lnAddress: string;
-  lnbitUser: string;
-  endpoint: string;
-  walletUrl: string;
-  lndhub: {
-    login: string;
-    password: string;
-    url: string;
-  };
+  id: string;
+  name: string | null;
+  bio: string | null;
+  email: string | null;
+  github: string | null;
+  twitter: string | null;
+  nostr: string | null;
+  discord: string | null;
+  lud06: string | null;
+  relayIDs: string[];
+  otSignIn: string | null;
 }
 
 export interface CreatedUserResponse extends ResponseDataType {

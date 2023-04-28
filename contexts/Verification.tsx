@@ -1,16 +1,20 @@
 import React, { useCallback, useState } from "react";
 import VerificationModal from "../components/verification/VerificationModal";
+import { UserData } from "../types/request";
 
 interface VerificationContextProps {
   step: number;
+  userData?: UserData;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   showModal: (step?: number) => void;
+  setUserData: React.Dispatch<React.SetStateAction<UserData | undefined>>;
 }
 
 const VerificationContext = React.createContext<VerificationContextProps>({
   step: 0,
   setStep: () => {},
   showModal: (_step?: number) => {},
+  setUserData: () => {},
 });
 
 interface VerificationProviderProps {
@@ -25,6 +29,8 @@ export const VerificationProvider = ({
 
   const [step, setStep] = useState(startingStep);
 
+  const [userData, setUserData] = useState<UserData | undefined>();
+
   const showModal = useCallback((step: number = 0) => {
     setStartingStep(step);
     setIsOpen(true);
@@ -35,7 +41,9 @@ export const VerificationProvider = ({
   }, []);
 
   return (
-    <VerificationContext.Provider value={{ step, setStep, showModal }}>
+    <VerificationContext.Provider
+      value={{ step, userData, setStep, showModal, setUserData }}
+    >
       {children}
       <VerificationModal
         isOpen={isOpen}

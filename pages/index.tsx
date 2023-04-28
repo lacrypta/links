@@ -134,12 +134,13 @@ export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
   let provider: ConfigProvider = LocalProvider.createInstance("");
-  let userData: User | undefined = undefined;
+  let userData: User | null = null;
 
   if (process.env.DOMAIN_MATCH) {
     try {
       // Get config from provider (expected USERNAME.PROVIDER.hodl.ar)
       if (process.env.CONFIG_FROM_PROVIDER) {
+        console.info("HOLAAA");
         const urlConfig = parseUrl(context.req.headers.host);
         if (!urlConfig) {
           throw new Error("Invalid url pattern");
@@ -164,6 +165,7 @@ export async function getServerSideProps(context: any) {
 
         config = await provider.get();
       } else if (process.env.VERIFIED) {
+        console.info("VERIFAIDO!");
         // Subdomain is HODL user
         const hostname = context.req.headers.host.split(".");
         const subdomain = hostname.shift();
@@ -198,7 +200,7 @@ export async function getServerSideProps(context: any) {
     props: {
       config,
       provider: provider.toJSON(),
-      userData,
+      userData: userData,
       error,
     },
   };
