@@ -140,7 +140,6 @@ export async function getServerSideProps(context: any) {
     try {
       // Get config from provider (expected USERNAME.PROVIDER.hodl.ar)
       if (process.env.CONFIG_FROM_PROVIDER) {
-        console.info("HOLAAA");
         const urlConfig = parseUrl(context.req.headers.host);
         if (!urlConfig) {
           throw new Error("Invalid url pattern");
