@@ -1,3 +1,4 @@
+import { useVerification } from "../../../contexts/Verification";
 import NostrExtensionProvider from "../../../types/nostr";
 import NostrDetected from "../widgets/NostrDetected";
 
@@ -9,10 +10,12 @@ declare global {
 }
 
 export const NostrStep = () => {
+  const { otToken } = useVerification();
   return (
     <div>
       <div>
         <h2>Configuración de NOSTR</h2>
+        <div>orToken: {otToken}</div>
       </div>
       <div>
         {window.nostr ? (
