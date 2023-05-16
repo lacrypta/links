@@ -1,5 +1,9 @@
 import { ProviderType } from "../types/provider";
-import { CreatedUserResponse, UserData } from "../types/request";
+import {
+  CreatedUserResponse,
+  CreatedWalletResponse,
+  UserData,
+} from "../types/request";
 
 const API_ENPOINT =
   process.env.NEXT_PUBLIC_USERS_API_URL || "https://hodl.ar/api/users";
@@ -46,6 +50,43 @@ export const createUser = async (
     }
 
     const res: CreatedUserResponse = await response.json();
+
+    if (!res.success) {
+      throw new Error(res.message);
+    }
+
+    return res.data as UserData;
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
+};
+
+export const createWallet = async (
+  username: string,
+  otToken: string
+): Promise<UserData> => {
+  const jsonData = JSON.stringify({
+    username,
+    otToken,
+  });
+
+  // throw new Error("Not implemented");
+
+  try {
+    const response = await fetch(`${API_ENPOINT}/wallet/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+    });
+
+    // Check if the response is successful
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const res: CreatedWalletResponse = await response.json();
 
     if (!res.success) {
       throw new Error(res.message);
