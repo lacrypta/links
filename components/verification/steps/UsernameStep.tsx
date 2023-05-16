@@ -1,6 +1,7 @@
 import { BoltIcon, CheckBadgeIcon } from "@heroicons/react/20/solid";
 import Button from "../button";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { isUsernameAvailable } from "../../../lib/users";
 
 interface UsernameStepProps {
   next: (_username: string) => void;
@@ -8,6 +9,30 @@ interface UsernameStepProps {
 
 export const UsernameStep = ({ next }: UsernameStepProps) => {
   const [username, setUsername] = useState<string>("");
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
+  const [isValid, setIsValid] = useState<boolean>(false);
+
+  const updateUsername = useCallback(
+    (value: string) => {
+      setUsername(value);
+      timer && clearTimeout(timer);
+      setIsValid(false);
+      const _timer = setTimeout(() => {
+        checkValidUsername(value);
+      }, 500);
+
+      setTimer(_timer);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [timer]
+  );
+
+  const checkValidUsername = useCallback(async (username: string) => {
+    setIsValid(await isUsernameAvailable(username));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {}, []);
   return (
     <>
       <form onSubmit={() => next(username)}>
@@ -20,7 +45,7 @@ export const UsernameStep = ({ next }: UsernameStepProps) => {
             <div className='mb-6'>
               <input
                 type='text'
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => updateUsername(e.target.value)}
                 value={username}
                 className='block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500'
               />
@@ -57,6 +82,7 @@ export const UsernameStep = ({ next }: UsernameStepProps) => {
           <Button
             label='Registrar'
             type='submit'
+            disabled={!isValid}
             prefix={
               <CheckBadgeIcon
                 className='text-blue-900/50'
