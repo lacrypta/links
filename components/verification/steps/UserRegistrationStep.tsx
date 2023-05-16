@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import Spinner from "../spinner";
 import { createUser } from "../../../lib/users";
 import { useConfig } from "../../../contexts/Config";
-import { UserData } from "../../../types/request";
+
 import Wallet from "../widgets/wallet";
 import Button from "../button";
-import { useVerification } from "../../../contexts/Verification";
+import { useAccount } from "../../../contexts/Account";
+import { UserData } from "../../../types/request";
 
 interface UserRegistrationStepProps {
   next: () => void;
@@ -16,7 +17,7 @@ export const UserRegistrationStep = ({ next }: UserRegistrationStepProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
 
-  const { userData, setUserData } = useVerification();
+  const { userData, setUserData } = useAccount();
 
   const { provider } = useConfig();
 
@@ -29,7 +30,7 @@ export const UserRegistrationStep = ({ next }: UserRegistrationStepProps) => {
 
     setError(undefined);
     createUser(provider.getUsername(), provider.getType())
-      .then(setUserData)
+      .then((data) => setUserData(data as UserData))
       .catch((e) => {
         setError((e as Error).message);
       })

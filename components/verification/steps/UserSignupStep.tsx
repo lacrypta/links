@@ -3,6 +3,7 @@ import Spinner from "../spinner";
 import { createUser } from "../../../lib/users";
 import { useConfig } from "../../../contexts/Config";
 import { useVerification } from "../../../contexts/Verification";
+import { useAccount } from "../../../contexts/Account";
 
 interface UserSignupStepProps {
   next: () => void;
@@ -11,7 +12,8 @@ interface UserSignupStepProps {
 export const UserSignupStep = ({ next }: UserSignupStepProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
-  const { setOtToken, setUserData } = useVerification();
+  const { setOtToken } = useVerification();
+  const { setUserData } = useAccount();
 
   const { provider } = useConfig();
 
@@ -25,7 +27,7 @@ export const UserSignupStep = ({ next }: UserSignupStepProps) => {
     setError(undefined);
     createUser(provider.getUsername(), provider.getType())
       .then((data) => {
-        setUserData(data);
+        setUserData(data as any);
         setOtToken(data.nextOtToken as string);
         next();
       })

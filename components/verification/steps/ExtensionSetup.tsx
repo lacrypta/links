@@ -1,3 +1,5 @@
+import { useVerification } from "../../../contexts/Verification";
+import Button from "../button";
 import AlbyDetected from "../widgets/AlbyDetected";
 import AlbyNotDetected from "../widgets/AlbyNotDetected";
 
@@ -7,6 +9,17 @@ interface ExtensionSetupStepProps {
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN_REDIRECT || "localhost:3001";
 export const ExtensionSetupStep = ({}: ExtensionSetupStepProps) => {
+  const { otToken } = useVerification();
+
+  if (!otToken) {
+    return (
+      <>
+        <div>Falta el OTToken</div>
+        <Button onClick={() => window.history.back()} label='Volver' />
+      </>
+    );
+  }
+
   return (
     <>
       <div className='mt-2 relative'>

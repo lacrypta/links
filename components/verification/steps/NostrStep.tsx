@@ -15,7 +15,6 @@ export const NostrStep = () => {
     <div>
       <div>
         <h2>Configuración de NOSTR</h2>
-        <div>orToken: {otToken}</div>
       </div>
       <div>
         {window.nostr ? (

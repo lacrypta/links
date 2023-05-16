@@ -31,11 +31,12 @@ import GitHubProvider from "../providers/github";
 import LocalProvider from "../providers/local";
 import { User } from "../types/user";
 import { useAccount } from "../contexts/Account";
+import { UserData } from "../types/request";
 
 interface HomeProps {
   config: Config;
   provider: ConfigProviderSerialized;
-  userData: User;
+  userData: UserData;
   redirect?: string;
   error?: string | null;
 }
@@ -135,7 +136,7 @@ export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
   let provider: ConfigProvider = LocalProvider.createInstance("");
-  let userData: User | null = null;
+  let userData: UserData | null = null;
 
   if (process.env.DOMAIN_MATCH) {
     try {
@@ -207,7 +208,7 @@ export async function getServerSideProps(context: any) {
     props: {
       config,
       provider: provider.toJSON(),
-      userData: userData,
+      userData,
       error,
     },
   };

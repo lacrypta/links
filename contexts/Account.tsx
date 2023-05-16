@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { User } from "../types/user";
+import { UserData } from "../types/request";
 
 interface IAccountContext {
-  userData: User | null;
-  setUserData: React.Dispatch<React.SetStateAction<User | null>>;
+  userData: UserData | null;
+  setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
 }
 
 const AccountContext = React.createContext<IAccountContext>({
@@ -16,7 +16,10 @@ interface AccountProviderProps {
 }
 
 export const AccountProvider = ({ children }: AccountProviderProps) => {
-  const [userData, setUserData] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  console.info("X userData:");
+  console.dir(userData);
 
   return (
     <AccountContext.Provider

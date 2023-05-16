@@ -1,11 +1,12 @@
 import { CheckIcon, LockOpenIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import Spinner from "../spinner";
-import { createUser } from "../../../lib/users";
-import { useConfig } from "../../../contexts/Config";
+import { createWallet } from "../../../lib/users";
 import { UserData } from "../../../types/request";
 import Wallet from "../widgets/wallet";
 import Button from "../button";
+import { useAccount } from "../../../contexts/Account";
+import { useVerification } from "../../../contexts/Verification";
 
 interface WalletConfigStepProps {
   next: () => void;
@@ -15,18 +16,12 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
   const [userData, setUserData] = useState<UserData | undefined>();
-
-  const { provider } = useConfig();
+  const { userData: user } = useAccount();
+  const { otToken } = useVerification();
 
   useEffect(() => {
-    if (!provider) {
-      setError("No provider");
-      setIsLoading(false);
-      return;
-    }
-
     setError(undefined);
-    createUser(provider.getUsername(), provider.getType())
+    createWallet(user?.id as string, otToken as string)
       .then(setUserData)
       .catch((e) => {
         setError((e as Error).message);
@@ -34,7 +29,8 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [provider]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
