@@ -9,6 +9,7 @@ import WalletConfigStep from "./steps/WalletConfigStep";
 import ExtensionSetupStep from "./steps/ExtensionSetup";
 import { useVerification } from "../../contexts/Verification";
 import NostrStep from "./steps/NostrStep";
+import UserSignupStep from "./steps/UserSignupStep";
 
 interface VerificationModalProps {
   isOpen: boolean;
@@ -46,6 +47,7 @@ export const VerificationModal = ({
 
   useEffect(() => {
     setStep(startingStep);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startingStep]);
 
   const renderStepComponent = useCallback(() => {
@@ -57,13 +59,15 @@ export const VerificationModal = ({
       case 2:
         return <InstructionsStep username={username} next={next} />;
       case 3:
-        return <WalletConfigStep next={next} />;
+        return <UserSignupStep next={next} />;
       case 4:
         return <CongratulationsStep username={username} />;
       case 5:
         return <ExtensionSetupStep />;
       case 6:
         return <NostrStep />;
+      case 7:
+        return <WalletConfigStep next={next} />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, step, next]);
