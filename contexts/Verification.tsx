@@ -5,9 +5,11 @@ import { UserData } from "../types/request";
 interface VerificationContextProps {
   step: number;
   userData?: UserData;
+  otToken?: string;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   showModal: (step?: number) => void;
   setUserData: React.Dispatch<React.SetStateAction<UserData | undefined>>;
+  setOtToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const VerificationContext = React.createContext<VerificationContextProps>({
@@ -15,6 +17,7 @@ const VerificationContext = React.createContext<VerificationContextProps>({
   setStep: () => {},
   showModal: (_step?: number) => {},
   setUserData: () => {},
+  setOtToken: () => {},
 });
 
 interface VerificationProviderProps {
@@ -26,6 +29,7 @@ export const VerificationProvider = ({
 }: VerificationProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [startingStep, setStartingStep] = useState(0);
+  const [otToken, setOtToken] = useState<string>();
 
   const [step, setStep] = useState(startingStep);
 
@@ -42,7 +46,15 @@ export const VerificationProvider = ({
 
   return (
     <VerificationContext.Provider
-      value={{ step, userData, setStep, showModal, setUserData }}
+      value={{
+        step,
+        userData,
+        otToken,
+        setStep,
+        showModal,
+        setUserData,
+        setOtToken,
+      }}
     >
       {children}
       <VerificationModal
