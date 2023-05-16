@@ -1,6 +1,7 @@
 import { LockOpenIcon } from "@heroicons/react/20/solid";
 import { useCallback } from "react";
 import Button from "../button";
+import { useVerification } from "../../../contexts/Verification";
 
 interface CongratulationsStepProps {
   username: string;
@@ -8,9 +9,10 @@ interface CongratulationsStepProps {
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN_REDIRECT || "localhost:3001";
 export const CongratulationsStep = ({ username }: CongratulationsStepProps) => {
+  const { otToken } = useVerification();
   const redirect = useCallback(() => {
-    window.location.href = `//${username}.${domain}`;
-  }, [username]);
+    window.location.href = `//${username}.${domain}/verify/${otToken}`;
+  }, [username, otToken]);
 
   return (
     <>
