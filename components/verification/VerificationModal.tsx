@@ -63,11 +63,11 @@ export const VerificationModal = ({
       case 4:
         return <CongratulationsStep username={username} />;
       case 5:
-        return <ExtensionSetupStep />;
-      case 6:
-        return <NostrStep />;
-      case 7:
         return <WalletConfigStep next={next} />;
+      case 6:
+        return <ExtensionSetupStep />;
+      case 7:
+        return <NostrStep />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, step, next]);

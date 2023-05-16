@@ -11,21 +11,19 @@ export const AlbyNotDetected = () => {
 
   return (
     <div>
-      <div>Alby no detectado</div>
       {clicked ? (
         <div>
-          <div>Refrescá la página para detectarlo</div>
-
+          <div>- Poné conectar con LNDHUB</div>
+          <div>- Copiá y pegá esto:</div>
+          <div>- LNDHUB ....</div>
+          <div>- Refrescá la página</div>
           <Button label='Refrescar' onClick={() => window.location.reload()} />
         </div>
       ) : (
         <div>
-          <div>Por favor instalá la extensión</div>
-
-          <Button
-            label='Create una cuenta'
-            onClick={() => window.location.reload()}
-          />
+          <div>Alby no detectado</div>
+          <div>- Instalá la extensión</div>
+          <div>- Registrá tu contraseña y volvé a esta pestaña</div>
 
           <Button label='Descargar Alby' onClick={() => openAlby()} />
         </div>

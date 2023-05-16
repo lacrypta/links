@@ -2,11 +2,11 @@ import { CheckIcon, LockOpenIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import Spinner from "../spinner";
 import { createWallet } from "../../../lib/users";
-import { UserData } from "../../../types/request";
 import Wallet from "../widgets/wallet";
 import Button from "../button";
 import { useAccount } from "../../../contexts/Account";
 import { useVerification } from "../../../contexts/Verification";
+import { Wallet as WalletType } from "../../../types/wallet";
 
 interface WalletConfigStepProps {
   next: () => void;
@@ -15,14 +15,18 @@ interface WalletConfigStepProps {
 export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
-  const [userData, setUserData] = useState<UserData | undefined>();
+  const [walletData, setWalletData] = useState<WalletType | undefined>();
   const { userData: user } = useAccount();
   const { otToken } = useVerification();
 
   useEffect(() => {
+    if (window.webln) {
+      next();
+      return;
+    }
     setError(undefined);
     createWallet(user?.id as string, otToken as string)
-      .then(setUserData)
+      .then(setWalletData)
       .catch((e) => {
         setError((e as Error).message);
       })
@@ -30,7 +34,7 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
         setIsLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [window.webln]);
 
   return (
     <>
@@ -43,12 +47,12 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
               <div>Se esta creando tu wallet</div>
             </div>
           ) : (
-            userData && <Wallet user={userData} />
+            walletData && <Wallet data={walletData} />
           )}
         </div>
       </div>
 
-      {userData && (
+      {walletData && (
         <div className='mt-4 text-center relative'>
           <Button
             label='Finalizar'

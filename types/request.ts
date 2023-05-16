@@ -1,3 +1,5 @@
+import { Wallet } from "./wallet";
+
 export interface ResponseDataType {
   success: boolean;
   message?: string;
@@ -25,5 +27,5 @@ export interface CreatedUserResponse extends ResponseDataType {
 }
 
 export interface CreatedWalletResponse extends ResponseDataType {
-  data?: UserData;
+  data?: Wallet;
 }

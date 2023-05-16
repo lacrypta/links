@@ -1,6 +1,7 @@
 import { useVerification } from "../../../contexts/Verification";
 import NostrExtensionProvider from "../../../types/nostr";
 import NostrDetected from "../widgets/NostrDetected";
+import NostrNotDetected from "../widgets/NostrNotDetected";
 
 // Global window.nostr
 declare global {
@@ -16,13 +17,7 @@ export const NostrStep = () => {
       <div>
         <h2>Configuración de NOSTR</h2>
       </div>
-      <div>
-        {window.nostr ? (
-          <NostrDetected />
-        ) : (
-          <div>Necesitas configurar NOSTR</div>
-        )}
-      </div>
+      <div>{window.nostr ? <NostrDetected /> : <NostrNotDetected />}</div>
     </div>
   );
 };

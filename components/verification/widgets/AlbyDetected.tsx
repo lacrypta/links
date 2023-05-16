@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import NostrExtensionProvider from "../../../types/nostr";
 import NostrDetected from "./NostrDetected";
 import { useVerification } from "../../../contexts/Verification";
+import NostrNotDetected from "./NostrNotDetected";
 
 // Global window.nostr
 declare global {
@@ -21,13 +22,7 @@ export const AlbyDetected = () => {
       <div>
         <h2>Alby detectado</h2>
       </div>
-      <div>
-        {window.nostr ? (
-          <NostrDetected />
-        ) : (
-          <div>Necesitas configurar NOSTR</div>
-        )}
-      </div>
+      <NostrNotDetected />
     </div>
   );
 };

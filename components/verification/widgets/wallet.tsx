@@ -1,11 +1,12 @@
 import { useQRCode } from "next-qrcode";
 import { UserData } from "../../../types/request";
+import { Wallet as WalletType } from "../../../types/wallet";
 
 interface WalletProps {
-  user: UserData;
+  data: WalletType;
 }
 
-export const Wallet = ({ user }: WalletProps) => {
+export const Wallet = ({ data }: WalletProps) => {
   const { Canvas } = useQRCode();
 
   const lndhub = {

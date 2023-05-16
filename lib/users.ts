@@ -4,6 +4,7 @@ import {
   CreatedWalletResponse,
   UserData,
 } from "../types/request";
+import { Wallet } from "../types/wallet";
 
 const API_ENPOINT =
   process.env.NEXT_PUBLIC_USERS_API_URL || "https://hodl.ar/api/users";
@@ -64,13 +65,26 @@ export const createUser = async (
 export const createWallet = async (
   username: string,
   otToken: string
-): Promise<UserData> => {
+): Promise<Wallet> => {
   const jsonData = JSON.stringify({
     username,
     otToken,
   });
 
   // throw new Error("Not implemented");
+  return {
+    endpoint: "mock",
+    handle: "",
+    lnAddress: "",
+    lnbitUser: "",
+    lndhub: {
+      login: "",
+      password: "",
+      url: "",
+    },
+    username: "",
+    walletUrl: "",
+  };
 
   try {
     const response = await fetch(`${API_ENPOINT}/wallet/create`, {
@@ -92,7 +106,7 @@ export const createWallet = async (
       throw new Error(res.message);
     }
 
-    return res.data as UserData;
+    return res.data as Wallet;
   } catch (e) {
     throw new Error((e as Error).message);
   }
