@@ -1,9 +1,5 @@
 import { ProviderType } from "../types/provider";
-import {
-  CreatedUserResponse,
-  ResponseDataType,
-  UserData,
-} from "../types/request";
+import { CreatedUserResponse, UserData } from "../types/request";
 
 const API_ENPOINT =
   process.env.NEXT_PUBLIC_USERS_API_URL || "https://hodl.ar/api/users";
@@ -14,6 +10,14 @@ export const getUsers = async () => {
     .then((data) => {
       return data;
     });
+};
+
+export const isUsernameAvailable = async (username: string) => {
+  if (!username.match(/^[\w0-9]{3,20}$/)) {
+    return false;
+  }
+  const res = await fetch(`${API_ENPOINT}/${username}`);
+  return res.status === 404;
 };
 
 export const createUser = async (
