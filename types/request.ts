@@ -16,6 +16,7 @@ export interface UserData {
   lud06: string | null;
   relayIDs: string[];
   otSignIn: string | null;
+  nextOtToken: string | null;
 }
 
 export interface CreatedUserResponse extends ResponseDataType {
