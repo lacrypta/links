@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import VerificationModal from "../components/verification/VerificationModal";
 import { UserData } from "../types/request";
+import useLocalStorage from "use-local-storage";
 
 interface VerificationContextProps {
   step: number;
@@ -29,7 +30,7 @@ export const VerificationProvider = ({
 }: VerificationProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [startingStep, setStartingStep] = useState(0);
-  const [otToken, setOtToken] = useState<string>();
+  const [otToken, setOtToken] = useLocalStorage("otToken", undefined);
 
   const [step, setStep] = useState(startingStep);
 
