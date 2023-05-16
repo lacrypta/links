@@ -32,6 +32,7 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
     if (config?.nostr?.npub === npub) {
       alert("OHHHH YEAHHHH!!!");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
   return (
     <div className='w-full flex flex-col'>
