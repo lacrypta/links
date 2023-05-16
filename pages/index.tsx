@@ -36,6 +36,7 @@ interface HomeProps {
   config: Config;
   provider: ConfigProviderSerialized;
   userData: User;
+  redirect?: string;
   error?: string | null;
 }
 
@@ -185,6 +186,13 @@ export async function getServerSideProps(context: any) {
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
+      return {
+        redirect: {
+          permanent: false,
+          destination: process.env.NEXT_PUBLIC_DOMAIN_REDIRECT,
+        },
+        props: { error },
+      };
     }
   }
 
