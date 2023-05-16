@@ -12,6 +12,7 @@ export interface UserData {
   github: string | null;
   twitter: string | null;
   nostr: string | null;
+  npub: string | null;
   discord: string | null;
   lud06: string | null;
   relayIDs: string[];
@@ -20,5 +21,9 @@ export interface UserData {
 }
 
 export interface CreatedUserResponse extends ResponseDataType {
+  data?: UserData;
+}
+
+export interface CreatedWalletResponse extends ResponseDataType {
   data?: UserData;
 }
