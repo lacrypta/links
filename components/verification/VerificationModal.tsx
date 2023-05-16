@@ -104,11 +104,11 @@ export const VerificationModal = ({
                 </div>
                 <Dialog.Title
                   as='h3'
-                  className='font-medium text-3xl leading-6 text-gray-900 text-center mb-5 mt-6 relative'
+                  className='font-medium text-3xl leading-6 text-gray-900 text-center mb-5 mt-6 relative z-10'
                 >
                   Verificación
                 </Dialog.Title>
-                {renderStepComponent()}
+                <div className='relative z-10'>{renderStepComponent()}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
