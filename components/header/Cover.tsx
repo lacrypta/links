@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import RoundButton from "./RoundButton";
+import MenuButton from "./menu/MenuButton";
 
 const Container = styled.div`
   ${(props) => `
@@ -22,9 +22,7 @@ export const Cover = () => {
         stiffness: 260,
         damping: 20,
       }}
-    >
-      <RoundButton className='absolute top-2 right-2 hidden' />
-    </MotionContainer>
+    ></MotionContainer>
   );
 };
 

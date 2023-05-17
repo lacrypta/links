@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchConfig, readLocalConfig } from "../lib/utils";
+import { parseUrl, readLocalConfig } from "../lib/utils";
 import { Config } from "../types/config";
 
 // Components
@@ -19,17 +19,46 @@ import { Block } from "../types/block";
 // Google Tag manager
 import TagManager from "react-gtm-module";
 import { motion } from "framer-motion";
-import { getProfile } from "../lib/github";
 import { ThemeProvider } from "styled-components";
 import { generateTheme } from "../lib/theme";
 import { getUsers } from "../lib/users";
+import MenuButton from "../components/header/menu/MenuButton";
+import { CheckBadgeIcon } from "@heroicons/react/20/solid";
+import { useConfig } from "../contexts/Config";
+import { ConfigProviderSerialized, ProviderType } from "../types/provider";
+import { ConfigProvider } from "../providers/abstract";
+import GitHubProvider from "../providers/github";
+import LocalProvider from "../providers/local";
+import { User } from "../types/user";
+import { useAccount } from "../contexts/Account";
+import { UserData } from "../types/request";
 
 interface HomeProps {
   config: Config;
+  provider: ConfigProviderSerialized;
+  userData: UserData;
+  redirect?: string;
   error?: string | null;
 }
 
-export default function Home({ config, error }: HomeProps) {
+// Register Config Providers
+GitHubProvider.register();
+LocalProvider.register();
+
+const supportedProviders = ConfigProvider.supportedProviders;
+
+export default function Home({ config, provider, userData, error }: HomeProps) {
+  const { setConfig, setProvider } = useConfig();
+  const { setUserData } = useAccount();
+
+  // Sets config for provider
+  useEffect(() => {
+    setConfig(config);
+    setUserData(userData);
+    setProvider(ConfigProvider.fromJSON(provider) as ConfigProvider);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Google Tag Manager
   useEffect(() => {
     if (!config?.html?.google_analytics) {
@@ -63,9 +92,27 @@ export default function Home({ config, error }: HomeProps) {
               damping: 20,
             }}
           >
-            <div className='sm:w-[800px] sm:mx-auto sm:max-w-lg'>
+            <div className='sm:w-[800px] relative sm:mx-auto sm:max-w-lg'>
+              <motion.div
+                className={"absolute top-5 right-2 z-50"}
+                initial={{ marginTop: 50, opacity: 0 }}
+                animate={{ marginTop: 0, opacity: 1 }}
+                transition={{ delay: 1.1 }}
+              >
+                <MenuButton />
+              </motion.div>
               <Cover />
               <Paper>
+                {config.verified && (
+                  <div className='absolute right-3 top-3'>
+                    <CheckBadgeIcon
+                      stroke='white'
+                      strokeWidth={0.8}
+                      className='h-7 w-7 text-blue-500 drop-shadow-md'
+                    />
+                  </div>
+                )}
+
                 <Logo title={main.title} picture={main.picture} />
                 <Title>{main?.title}</Title>
                 <div className='divide-y divide-gray-300/50'>
@@ -88,42 +135,81 @@ export default function Home({ config, error }: HomeProps) {
 export async function getServerSideProps(context: any) {
   let config: Config | null = null;
   let error = null;
+  let provider: ConfigProvider = LocalProvider.createInstance("");
+  let userData: UserData | null = null;
+
   if (process.env.DOMAIN_MATCH) {
     try {
-      const hostname = context.req.headers.host.split(".");
-      const subdomain = hostname.shift();
-      let githubUser = subdomain;
-      const domain = hostname.join(".");
-      if (domain !== process.env.DOMAIN_MATCH) {
-        throw new Error("Invalid DOMAIN_MATCH in .env");
-      }
+      // Get config from provider (expected USERNAME.PROVIDER.hodl.ar)
+      if (process.env.CONFIG_FROM_PROVIDER) {
+        const urlConfig = parseUrl(context.req.headers.host);
+        if (!urlConfig) {
+          throw new Error("Invalid url pattern");
+        }
 
-      if (process.env.USERS_API_URL) {
+        const ProviderConstructor = supportedProviders.get(
+          urlConfig.provider as ProviderType
+        );
+
+        if (!ProviderConstructor) {
+          throw new Error(`Provider "${urlConfig.provider}" not supported`);
+        }
+
+        const subdomain = urlConfig.username;
+        let githubUser = subdomain;
+        const domain = urlConfig.host;
+        if (domain !== process.env.DOMAIN_MATCH) {
+          throw new Error("Invalid DOMAIN_MATCH in .env");
+        }
+
+        provider = ProviderConstructor.createInstance(githubUser);
+
+        config = await provider.get();
+      } else if (process.env.VERIFIED) {
+        console.info("VERIFAIDO!");
+        // Subdomain is HODL user
+        const hostname = context.req.headers.host.split(".");
+        const subdomain = hostname.shift();
+
+        // TODO: Query single user
         const users = await getUsers();
 
-        const found = users.find((user: any) => user.id === subdomain);
-        if (found) {
-          githubUser = found.github;
+        userData = users.find((user: any) => user.id === subdomain);
+        if (!userData) {
+          throw new Error("User not found on HODL.ar");
         }
-      }
 
-      const url = `https://raw.githubusercontent.com/${githubUser}/.hodl.ar/main/config.yml`;
+        const githubUser = userData.github as string;
 
-      config = await fetchConfig(url);
-      if (!config.main.picture) {
-        config.main.picture = (await getProfile(githubUser)).avatar_url;
+        provider = GitHubProvider.createInstance(githubUser);
+        config = await provider.get();
       }
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
+      return {
+        redirect: {
+          permanent: false,
+          destination: process.env.NEXT_PUBLIC_DOMAIN_REDIRECT,
+        },
+        props: { error },
+      };
     }
   }
 
+  // Fallback to local config
   if (!config) {
     config = await readLocalConfig();
   }
 
+  (config as Config).verified = !!process.env.VERIFIED;
+
   return {
-    props: { config, error },
+    props: {
+      config,
+      provider: provider.toJSON(),
+      userData,
+      error,
+    },
   };
 }
