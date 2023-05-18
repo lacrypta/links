@@ -1,12 +1,12 @@
-import { CheckIcon, LockOpenIcon } from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
-import Spinner from "../spinner";
 import { createWallet } from "../../../lib/users";
-import Wallet from "../widgets/wallet";
+import LndHubUrl from "./WalletSteps/LndHubUrl";
 import Button from "../button";
 import { useAccount } from "../../../contexts/Account";
 import { useVerification } from "../../../contexts/Verification";
 import { Wallet as WalletType } from "../../../types/wallet";
+import CreationSpinner from "./WalletSteps/CreationSpinner";
 
 interface WalletConfigStepProps {
   next: () => void;
@@ -42,12 +42,9 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
         <div className='text-gray-500'>
           {error && <div>{error}</div>}
           {isLoading ? (
-            <div className='flex flex-col justify-center items-center space-y-5'>
-              <Spinner className='w-32 h-32' />
-              <div>Se esta creando tu wallet</div>
-            </div>
+            <CreationSpinner />
           ) : (
-            walletData && <Wallet data={walletData} />
+            walletData && <LndHubUrl data={walletData} />
           )}
         </div>
       </div>

@@ -7,10 +7,10 @@ import {
 import { Wallet } from "../types/wallet";
 
 const API_ENPOINT =
-  process.env.NEXT_PUBLIC_USERS_API_URL || "https://hodl.ar/api/users";
+  process.env.NEXT_PUBLIC_API_ENDPOINT || "https://hodl.ar/api";
 
 export const getUsers = async () => {
-  return fetch(`${API_ENPOINT}`)
+  return fetch(`${API_ENPOINT}/users`)
     .then((res) => res.json())
     .then((data) => {
       return data;
@@ -21,7 +21,7 @@ export const isUsernameAvailable = async (username: string) => {
   if (!username.match(/^[\w0-9]{3,20}$/)) {
     return false;
   }
-  const res = await fetch(`${API_ENPOINT}/${username}`);
+  const res = await fetch(`${API_ENPOINT}/users/${username}`);
   return res.status === 404;
 };
 
@@ -37,7 +37,7 @@ export const createUser = async (
   // throw new Error("Not implemented");
 
   try {
-    const response = await fetch(`${API_ENPOINT}/create`, {
+    const response = await fetch(`${API_ENPOINT}/users/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,23 +71,22 @@ export const createWallet = async (
     otToken,
   });
 
-  // throw new Error("Not implemented");
-  return {
-    endpoint: "mock",
-    handle: "",
-    lnAddress: "",
-    lnbitUser: "",
-    lndhub: {
-      login: "",
-      password: "",
-      url: "",
-    },
-    username: "",
-    walletUrl: "",
-  };
+  // return {
+  //   endpoint: "mock",
+  //   handle: "",
+  //   lnAddress: "",
+  //   lnbitUser: "",
+  //   lndhub: {
+  //     login: "",
+  //     password: "",
+  //     url: "",
+  //   },
+  //   username: "",
+  //   walletUrl: "",
+  // };
 
   try {
-    const response = await fetch(`${API_ENPOINT}/wallet/create`, {
+    const response = await fetch(`${API_ENPOINT}/wallets/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

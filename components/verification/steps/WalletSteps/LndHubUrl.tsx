@@ -1,22 +1,14 @@
 import { useQRCode } from "next-qrcode";
-import { UserData } from "../../../types/request";
-import { Wallet as WalletType } from "../../../types/wallet";
+import { Wallet as WalletType } from "../../../../types/wallet";
 
 interface WalletProps {
   data: WalletType;
 }
 
-export const Wallet = ({ data }: WalletProps) => {
-  const { Canvas } = useQRCode();
+export const LndHubUrl = ({ data }: WalletProps) => {
+  const { lndhub, walletUrl } = data;
 
-  const lndhub = {
-    login: "",
-    password: "",
-    url: "",
-  };
-
-  const walletUrl = "";
-
+  const lnhubUrl = `lndhub://${lndhub.login}:${lndhub.password}@${lndhub.url}`;
   return (
     <div>
       <div>
@@ -34,15 +26,11 @@ export const Wallet = ({ data }: WalletProps) => {
         <div className='flex flex-col justify-center mt-4 text-2xl'>
           <h4 className='text-center'>LNHub</h4>
 
-          <div className='flex flex-row justify-center'>
-            <Canvas
-              text={`lndhub://${lndhub.login}:${lndhub.password}@${lndhub.url}`}
-              options={{
-                level: "M",
-                margin: 3,
-                scale: 4,
-                width: 350,
-              }}
+          <div className='flex flex-row justify-center'></div>
+          <div>
+            <textarea
+              className='w-full border-gray-500 border text-sm p-2'
+              value={lnhubUrl}
             />
           </div>
         </div>
@@ -51,4 +39,4 @@ export const Wallet = ({ data }: WalletProps) => {
   );
 };
 
-export default Wallet;
+export default LndHubUrl;

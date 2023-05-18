@@ -18,9 +18,6 @@ interface AccountProviderProps {
 export const AccountProvider = ({ children }: AccountProviderProps) => {
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  console.info("X userData:");
-  console.dir(userData);
-
   return (
     <AccountContext.Provider
       value={{
