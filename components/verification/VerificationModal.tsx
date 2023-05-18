@@ -3,7 +3,7 @@ import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { WelcomeStep } from "./steps/WelcomeStep";
 import UsernameStep from "./steps/UsernameStep";
-import InstructionsStep from "./steps/InstructionsStep";
+import NostrConfigStep from "./steps/NostrConfigStep";
 import CongratulationsStep from "./steps/Congratulations";
 import WalletConfigStep from "./steps/WalletConfigStep";
 import ExtensionSetupStep from "./steps/ExtensionSetup";
@@ -57,7 +57,7 @@ export const VerificationModal = ({
       case 1:
         return <UsernameStep next={assignUsername} />;
       case 2:
-        return <InstructionsStep username={username} next={next} />;
+        return <NostrConfigStep username={username} next={next} />;
       case 3:
         return <UserSignupStep next={next} />;
       case 4:

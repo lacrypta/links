@@ -27,5 +27,5 @@ export interface CreatedUserResponse extends ResponseDataType {
 }
 
 export interface CreatedWalletResponse extends ResponseDataType {
-  data?: Wallet;
+  data?: Wallet & { nextOtToken: string };
 }

@@ -1,8 +1,4 @@
-import {
-  LockOpenIcon,
-  MagnifyingGlassCircleIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import type { ProviderType } from "../../../types/provider";
 import GithubUsernameSetup from "../providers/github/UsernameSetup";
 import LocalUsernameSetup from "../providers/local/UsernameSetup";
@@ -10,7 +6,7 @@ import { useCallback, useState } from "react";
 import { useConfig } from "../../../contexts/Config";
 import Button from "../button";
 
-interface InstructionsStepProps {
+interface NostrConfigStepProps {
   username: string;
   next: () => void;
 }
@@ -20,7 +16,7 @@ const providerComponents: { [key in ProviderType]: any } = {
   local: () => LocalUsernameSetup,
 };
 
-export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
+export const NostrConfigStep = ({ username, next }: NostrConfigStepProps) => {
   const ProviderInstructions = providerComponents["github"]({});
   const { refresh } = useConfig();
 
@@ -80,4 +76,4 @@ export const InstructionsStep = ({ username, next }: InstructionsStepProps) => {
   );
 };
 
-export default InstructionsStep;
+export default NostrConfigStep;

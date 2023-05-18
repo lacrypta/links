@@ -24,7 +24,7 @@ export const ExtensionSetupStep = ({}: ExtensionSetupStepProps) => {
     <>
       <div className='mt-2 relative'>
         <div className='text-gray-500'>
-          <h4 className='mt-3 mb-4 text-2xl text-center'>Extensión</h4>
+          <h4 className='mt-3 mb-4 text-2xl text-center'>Extensión de Alby</h4>
           {window.webln ? <AlbyDetected /> : <AlbyNotDetected />}
         </div>
       </div>

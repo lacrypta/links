@@ -65,25 +65,11 @@ export const createUser = async (
 export const createWallet = async (
   username: string,
   otToken: string
-): Promise<Wallet> => {
+): Promise<Wallet & { nextOtToken: string }> => {
   const jsonData = JSON.stringify({
     username,
     otToken,
   });
-
-  // return {
-  //   endpoint: "mock",
-  //   handle: "",
-  //   lnAddress: "",
-  //   lnbitUser: "",
-  //   lndhub: {
-  //     login: "",
-  //     password: "",
-  //     url: "",
-  //   },
-  //   username: "",
-  //   walletUrl: "",
-  // };
 
   try {
     const response = await fetch(`${API_ENPOINT}/wallets/create`, {
@@ -105,7 +91,10 @@ export const createWallet = async (
       throw new Error(res.message);
     }
 
-    return res.data as Wallet;
+    return {
+      ...(res.data as Wallet),
+      nextOtToken: res.data?.nextOtToken as string,
+    };
   } catch (e) {
     throw new Error((e as Error).message);
   }

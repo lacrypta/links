@@ -1,12 +1,14 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createWallet } from "../../../lib/users";
 import LndHubUrl from "./WalletSteps/LndHubUrl";
-import Button from "../button";
 import { useAccount } from "../../../contexts/Account";
 import { useVerification } from "../../../contexts/Verification";
 import { Wallet as WalletType } from "../../../types/wallet";
 import CreationSpinner from "./WalletSteps/CreationSpinner";
+import ChooseConector from "./WalletSteps/ChooseConnector";
+import ChooseLndHub from "./WalletSteps/ChooseLndHub";
+import { useWallet } from "../../../contexts/Wallet";
 
 interface WalletConfigStepProps {
   next: () => void;
@@ -15,9 +17,10 @@ interface WalletConfigStepProps {
 export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
-  const [walletData, setWalletData] = useState<WalletType | undefined>();
+  const { walletData, setWalletData } = useWallet();
   const { userData: user } = useAccount();
-  const { otToken } = useVerification();
+  const { otToken, setOtToken } = useVerification();
+  const [albyStep, setAlbyStep] = useState<number>(0);
 
   useEffect(() => {
     if (window.webln) {
@@ -26,7 +29,10 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
     }
     setError(undefined);
     createWallet(user?.id as string, otToken as string)
-      .then(setWalletData)
+      .then((_walletData) => {
+        setWalletData(_walletData);
+        setOtToken(_walletData.nextOtToken);
+      })
       .catch((e) => {
         setError((e as Error).message);
       })
@@ -36,6 +42,23 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.webln]);
 
+  const nextAlbyStep = useCallback(() => {
+    setAlbyStep((c) => ++c);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const renderStepComponent = useCallback(() => {
+    switch (albyStep) {
+      case 0:
+        return <ChooseConector next={nextAlbyStep} />;
+      case 1:
+        return <ChooseLndHub next={nextAlbyStep} />;
+      case 2:
+        return <LndHubUrl next={next} data={walletData as WalletType} />;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [albyStep, walletData]);
+
   return (
     <>
       <div className='mt-2 relative'>
@@ -44,23 +67,10 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
           {isLoading ? (
             <CreationSpinner />
           ) : (
-            walletData && <LndHubUrl data={walletData} />
+            walletData && renderStepComponent()
           )}
         </div>
       </div>
-
-      {walletData && (
-        <div className='mt-4 text-center relative'>
-          <Button
-            label='Finalizar'
-            type='button'
-            prefix={
-              <CheckIcon className='text-blue-900/50' width={20} height={20} />
-            }
-            onClick={() => next()}
-          />
-        </div>
-      )}
     </>
   );
 };

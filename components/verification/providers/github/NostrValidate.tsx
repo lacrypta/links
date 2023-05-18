@@ -39,7 +39,11 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
       <div>
         Asegurate de reemplazar <b>YOUR_NPUB</b> por
       </div>
-      <input type='text' disabled={true} value={npub} />
+      <textarea
+        className='w-full border-gray-500 border text-sm p-2'
+        disabled={true}
+        value={npub}
+      />
       <div>
         Hace click{" "}
         <b>

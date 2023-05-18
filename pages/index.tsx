@@ -166,7 +166,6 @@ export async function getServerSideProps(context: any) {
 
         config = await provider.get();
       } else if (process.env.VERIFIED) {
-        console.info("VERIFAIDO!");
         // Subdomain is HODL user
         const hostname = context.req.headers.host.split(".");
         const subdomain = hostname.shift();
