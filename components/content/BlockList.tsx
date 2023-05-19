@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Block as IBlock } from "../../types/block";
-import Block from "../blocks/Block";
+import Block from "../blocks/block";
 
 interface BlockListProps {
   blocks?: IBlock[];
