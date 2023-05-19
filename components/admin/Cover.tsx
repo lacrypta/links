@@ -9,10 +9,14 @@ const Container = styled.div`
 
 const MotionContainer = motion(Container);
 
-export const Cover = () => {
+interface CoverProps {
+  children?: React.ReactNode;
+}
+
+export const Cover = ({ children }: CoverProps) => {
   return (
     <MotionContainer
-      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg h-28 rounded-t-lg z-10'
+      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg h-[58px] rounded-t-lg z-10 flex flex-row justify-between p-2'
       initial={{ translateY: "100%" }}
       animate={{ translateY: "10%" }}
       transition={{
@@ -21,7 +25,9 @@ export const Cover = () => {
         stiffness: 260,
         damping: 20,
       }}
-    ></MotionContainer>
+    >
+      {children}
+    </MotionContainer>
   );
 };
 
