@@ -39,8 +39,13 @@ export async function readLocalConfig() {
   return YAML.parse(res);
 }
 
-export function capitalize(s: string) {
-  return s && s[0].toUpperCase() + s.slice(1);
+export async function readLocalAdminConfig() {
+  const CONFIG_DIRECTORY = path.join(process.cwd(), "public/config");
+  const res = await readLocalFileContents(
+    `${CONFIG_DIRECTORY}/admin.config.yml`
+  );
+  console.info("Using custom config.yml");
+  return YAML.parse(res);
 }
 
 export function parseUrl(input: string): UrlConfig | null {
