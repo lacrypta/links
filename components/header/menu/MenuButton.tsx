@@ -37,7 +37,6 @@ export const MenuButton = ({ className }: MenuButtonProps) => {
         label: "Verificar",
         icon: CheckBadgeIcon,
         onClick: () => {
-          alert("En construcción. No utilizar.");
           showModal();
         },
       });
