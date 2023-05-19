@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useConfig } from "../../../../contexts/Config";
 import Button from "../../button";
+import { useVerification } from "../../../../contexts/Verification";
+import { setupNostr } from "../../../../lib/users";
+import { useRouter } from "next/router";
 
 interface NostrValidateProps {
   npub: string;
@@ -18,6 +21,9 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
   const { config, provider, refresh } = useConfig();
   const githubUsername = provider?.getUsername();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const { otToken, setOtToken } = useVerification();
 
   const verify = useCallback(async () => {
     setIsLoading(true);
@@ -26,11 +32,30 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const setup = useCallback(async (npub: string, otToken: string) => {
+    console.info("Setting up NOSTR...");
+    setIsLoading(true);
+    try {
+      await setupNostr(npub, otToken);
+      setOtToken(undefined);
+      router.push("/admin");
+    } catch (e) {
+      alert("Error at trying to configure NOSTR");
+      console.dir(e);
+    }
+
+    setIsLoading(false);
+  }, []);
+
   useEffect(() => {
     console.info("config:");
     console.dir(config);
     if (config?.nostr?.npub === npub) {
-      alert("OHHHH YEAHHHH!!!");
+      if (!otToken) {
+        alert("Tenemos un problema...");
+        return;
+      }
+      setup(npub, otToken);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
