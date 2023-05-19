@@ -1,4 +1,5 @@
 import { ProviderType } from "../types/provider";
+import { ResponseDataType } from "../types/request";
 import {
   CreatedUserResponse,
   CreatedWalletResponse,
@@ -63,11 +64,9 @@ export const createUser = async (
 };
 
 export const createWallet = async (
-  username: string,
   otToken: string
 ): Promise<Wallet & { nextOtToken: string }> => {
   const jsonData = JSON.stringify({
-    username,
     otToken,
   });
 
@@ -95,6 +94,39 @@ export const createWallet = async (
       ...(res.data as Wallet),
       nextOtToken: res.data?.nextOtToken as string,
     };
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
+};
+
+export const setupNostr = async (
+  npub: string,
+  otToken: string
+): Promise<void> => {
+  const jsonData = JSON.stringify({
+    npub,
+    otToken,
+  });
+
+  try {
+    const response = await fetch(`${API_ENPOINT}/nostr/setup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+    });
+
+    // Check if the response is successful
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const res: ResponseDataType = await response.json();
+
+    if (!res.success) {
+      throw new Error(res.message);
+    }
   } catch (e) {
     throw new Error((e as Error).message);
   }
