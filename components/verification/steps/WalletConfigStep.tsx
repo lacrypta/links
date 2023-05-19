@@ -28,7 +28,7 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
       return;
     }
     setError(undefined);
-    createWallet(user?.id as string, otToken as string)
+    createWallet(otToken as string)
       .then((_walletData) => {
         setWalletData(_walletData);
         setOtToken(_walletData.nextOtToken);
