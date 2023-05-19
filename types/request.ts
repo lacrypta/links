@@ -13,7 +13,6 @@ export interface UserData {
   email: string | null;
   github: string | null;
   twitter: string | null;
-  nostr: string | null;
   npub: string | null;
   discord: string | null;
   lud06: string | null;
