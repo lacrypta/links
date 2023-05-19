@@ -13,15 +13,17 @@ import MenuItem from "./MenuItem";
 import { useConfig } from "../../../contexts/Config";
 import { GiOstrich } from "react-icons/gi";
 import { useAccount } from "../../../contexts/Account";
+import { useRouter } from "next/router";
 
 interface MenuButtonProps {
   className?: string;
 }
 
 export const MenuButton = ({ className }: MenuButtonProps) => {
-  const { showModal } = useVerification();
+  const { showModal, otToken } = useVerification();
   const { config } = useConfig();
   const { userData } = useAccount();
+  const router = useRouter();
 
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
@@ -42,37 +44,26 @@ export const MenuButton = ({ className }: MenuButtonProps) => {
       });
     } else {
       // Already Verified
-
+      console.info("userData:");
+      console.dir(userData);
       // Already has npub assigned
       if (userData?.npub) {
         _menuItems.push({
-          label: "Configurar",
+          label: "Administrar",
           icon: Cog6ToothIcon,
           onClick: () => {
-            alert("En contrucción");
+            router.push("/admin");
           },
         });
-      } else {
+      } else if (otToken) {
         // User is not registered
-
-        // Nostr pub detected on config
-        if (config.nostr?.npub) {
-          _menuItems.push({
-            label: "Registrar npub (Nostr)",
-            icon: UserCircleIcon,
-            onClick: () => {
-              alert("En contrucción");
-            },
-          });
-        } else {
-          _menuItems.push({
-            label: "Configurar Nostr",
-            icon: GiOstrich,
-            onClick: () => {
-              showModal(5);
-            },
-          });
-        }
+        _menuItems.push({
+          label: "Configurar Nostr",
+          icon: GiOstrich,
+          onClick: () => {
+            showModal(5);
+          },
+        });
       }
     }
 
