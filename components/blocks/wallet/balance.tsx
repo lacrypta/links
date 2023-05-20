@@ -13,18 +13,18 @@ interface IBalanceProps {
 }
 
 const Balance = ({ data: { currency, label } }: IBalanceProps) => {
-  const [amount, setAmount] = useState(228882);
+  const [amount, setAmount] = useState(0);
+  const { getBalance } = useWallet();
 
   const refreshBalance = useCallback(async () => {
-    await window.webln?.enable();
-    const info = await window.webln?.getInfo();
-
-    console.dir(info);
-  }, []);
+    setAmount(await getBalance());
+  }, [getBalance]);
 
   useEffect(() => {
     refreshBalance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className=' w-full text-center flex flex-col'>
       <div className='text-xs text-gray-400'>{label}</div>

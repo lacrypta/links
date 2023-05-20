@@ -29,6 +29,14 @@ blocks:
     currency: "ARS"
     url: "NOTHING"
 
-  - title: "CHCHOOOOO"
+  - title: "Whatever"
+    icon: "twitter"
+    url: "https://twitter.lacrypta.com.ar"
+
+  - title: "Component"
+    icon: "twitter"
+    url: "https://twitter.lacrypta.com.ar"
+
+  - title: "You like"
     icon: "twitter"
     url: "https://twitter.lacrypta.com.ar"

@@ -16,11 +16,11 @@ interface CoverProps {
 export const Cover = ({ children }: CoverProps) => {
   return (
     <MotionContainer
-      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg h-[58px] rounded-t-lg z-10 flex flex-row justify-between p-2'
-      initial={{ translateY: "100%" }}
-      animate={{ translateY: "10%" }}
+      className='relative top-0 sm:w-[800px] sm:mx-auto sm:max-w-lg h-[54px] rounded-t-lg flex flex-row justify-between p-2 z-40'
+      initial={{ paddingTop: "0px", paddingBottom: "0px", maxHeight: "0px" }}
+      animate={{ paddingTop: "9px", paddingBottom: "9px", maxHeight: "200px" }}
       transition={{
-        delay: 0.9,
+        delay: 0.45,
         type: "spring",
         stiffness: 260,
         damping: 20,
