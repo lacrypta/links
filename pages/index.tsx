@@ -189,7 +189,7 @@ export async function getServerSideProps(context: any) {
       return {
         redirect: {
           permanent: false,
-          destination: process.env.NEXT_PUBLIC_DOMAIN_REDIRECT,
+          destination: `https://${process.env.NEXT_PUBLIC_DOMAIN_REDIRECT}`,
         },
         props: { error },
       };
