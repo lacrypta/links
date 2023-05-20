@@ -30,13 +30,13 @@ blocks:
     url: "NOTHING"
 
   - title: "Whatever"
-    icon: "twitter"
+    icon: "url"
     url: "https://twitter.lacrypta.com.ar"
 
   - title: "Component"
-    icon: "twitter"
-    url: "https://twitter.lacrypta.com.ar"
+    icon: "url"
+    url: "https://discord.lacrypta.com.ar"
 
   - title: "You like"
-    icon: "twitter"
-    url: "https://twitter.lacrypta.com.ar"
+    icon: "url"
+    url: "https://nomad.lacrypta.com.ar"
