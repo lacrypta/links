@@ -32,7 +32,9 @@ const Balance = ({ data: { currency, label } }: IBalanceProps) => {
         <div>
           <Image width={35} height={35} alt='' src={SatSvg} />
         </div>
-        <div className='text-3xl'>{amount}</div>
+        <div className='text-3xl' onClick={() => refreshBalance()}>
+          {amount}
+        </div>
         <div className='text-sm'>
           <span>(</span>
           <i>{currency}</i>

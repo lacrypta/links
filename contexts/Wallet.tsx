@@ -39,13 +39,12 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     });
 
     if (!response.ok) {
-      return 999;
+      return 0;
     }
 
     const res = await response.json();
-    console.dir(res);
 
-    return res.balance;
+    return res.balance / 1000;
   }, [walletData]);
 
   return (
