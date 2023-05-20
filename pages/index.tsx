@@ -29,7 +29,6 @@ import { ConfigProviderSerialized, ProviderType } from "../types/provider";
 import { ConfigProvider } from "../providers/abstract";
 import GitHubProvider from "../providers/github";
 import LocalProvider from "../providers/local";
-import { User } from "../types/user";
 import { useAccount } from "../contexts/Account";
 import { UserData } from "../types/request";
 
@@ -186,13 +185,16 @@ export async function getServerSideProps(context: any) {
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
-      return {
-        redirect: {
-          permanent: false,
-          destination: `https://${process.env.NEXT_PUBLIC_DOMAIN_REDIRECT}`,
-        },
-        props: { error },
-      };
+      // return {
+      //   redirect: {
+      //     permanent: false,
+      //     destination: `https://${process.env.NEXT_PUBLIC_DOMAIN_REDIRECT}`,
+      //   },
+      //   props: { error },
+      // };
+
+      config = await readLocalConfig();
+      (config as Config).username = "yofu";
     }
   }
 
