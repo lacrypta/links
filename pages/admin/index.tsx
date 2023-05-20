@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { parseUrl, readLocalConfig } from "../../lib/utils";
+import { readLocalAdminConfig } from "../../lib/utils";
 import { Config } from "../../types/config";
 
 // Components
@@ -146,16 +146,11 @@ export async function getServerSideProps(context: any) {
 
       // TODO: Query single user
       const users = await getUsers();
-
       userData = users.find((user: any) => user.id === subdomain);
       if (!userData) {
         throw new Error("User not found on HODL.ar");
       }
-
-      const githubUser = userData.github as string;
-
-      provider = GitHubProvider.createInstance(githubUser);
-      config = await provider.get();
+      config = await readLocalAdminConfig();
     } catch (e: any) {
       console.warn("Invalid username or subdomain: " + e.message);
       error = e.message;
@@ -167,11 +162,6 @@ export async function getServerSideProps(context: any) {
         props: { error },
       };
     }
-  }
-
-  // Fallback to local config
-  if (!config) {
-    config = await readLocalConfig();
   }
 
   (config as Config).verified = !!process.env.VERIFIED;

@@ -47,7 +47,7 @@ const BlockList = ({ blocks }: BlockListProps) => {
             easings: "linear",
             duration: 0.5,
           }}
-          animate={{ opacity: 1, maxHeight: "100px" }}
+          animate={{ opacity: 1 }}
           className='overflow-hidden'
         >
           <Block data={block} />

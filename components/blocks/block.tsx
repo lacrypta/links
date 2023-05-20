@@ -6,7 +6,18 @@ interface BlockProps {
 
 const Block = ({ data }: BlockProps) => {
   data.type = data.type ? data.type : "link"; // Default
-  const BlockComponent = require(`./${data.type}`).default;
+  let BlockComponent;
+  try {
+    BlockComponent = require(`./${data.type}`).default;
+  } catch (e) {
+    console.error(`Block type ${data.type} not found`);
+    return (
+      <div className='text-center'>
+        Block type <b>{data.type}</b> not found
+      </div>
+    );
+  }
+
   return (
     <div className='m-1 mx-6'>
       <BlockComponent data={data} />

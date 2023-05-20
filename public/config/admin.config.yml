@@ -1,0 +1,34 @@
+# Config version
+version: 0.3.5
+
+# HTML Head settings
+html:
+  title: "Your Admin"
+
+# Theme settings
+theme:
+  # background_color: "white"
+  cover_color: "#ff7070"
+
+# Main container settings
+main:
+  title: "Admin"
+  # just replace your local file /public/images/profile.png
+
+# Blocks list
+blocks:
+  - type: "wallet/balance"
+    provider: "lndhub"
+    label: "Balance"
+    currency: "ARS"
+    url: "NOTHING"
+
+  - type: "wallet/activity"
+    provider: "lndhub"
+    label: "Balance"
+    currency: "ARS"
+    url: "NOTHING"
+
+  - title: "CHCHOOOOO"
+    icon: "twitter"
+    url: "https://twitter.lacrypta.com.ar"
