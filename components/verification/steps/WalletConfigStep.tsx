@@ -9,6 +9,7 @@ import CreationSpinner from "./WalletSteps/CreationSpinner";
 import ChooseConector from "./WalletSteps/ChooseConnector";
 import ChooseLndHub from "./WalletSteps/ChooseLndHub";
 import { useWallet } from "../../../contexts/Wallet";
+import Button from "../button";
 
 interface WalletConfigStepProps {
   next: () => void;
@@ -54,7 +55,13 @@ export const WalletConfigStep = ({ next }: WalletConfigStepProps) => {
       case 1:
         return <ChooseLndHub next={nextAlbyStep} />;
       case 2:
-        return <LndHubUrl next={next} data={walletData as WalletType} />;
+        return (
+          <LndHubUrl next={nextAlbyStep} data={walletData as WalletType} />
+        );
+      case 3:
+        return (
+          <Button label='Refrescar' onClick={() => window.location.reload()} />
+        );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [albyStep, walletData]);

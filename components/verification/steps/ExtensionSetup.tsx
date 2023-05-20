@@ -7,7 +7,6 @@ interface ExtensionSetupStepProps {
   //   username: string;
 }
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN_REDIRECT || "localhost:3001";
 export const ExtensionSetupStep = ({}: ExtensionSetupStepProps) => {
   const { otToken } = useVerification();
 

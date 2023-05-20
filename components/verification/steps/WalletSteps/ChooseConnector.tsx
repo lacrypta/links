@@ -9,7 +9,18 @@ interface ChooseConectorProps {
 export const ChooseConector = ({ next }: ChooseConectorProps) => {
   return (
     <div className='flex flex-col justify-center items-center space-y-5'>
-      <div>Tenes que conectar con LNDHUB</div>
+      <div>Instalá la extensión ALBY</div>
+
+      <Button
+        onClick={() =>
+          window.open(
+            "https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe",
+            "_blank"
+          )
+        }
+        label='Instalar Alby'
+      />
+
       <Image src={picture} alt='wallet' />
 
       <Button onClick={next} label='Siguiente' />

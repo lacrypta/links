@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
 import Button from "../button";
 
+interface AlbyNotDetectedProps {}
+
 export const AlbyNotDetected = () => {
   const [clicked, setClicked] = useState(false);
 

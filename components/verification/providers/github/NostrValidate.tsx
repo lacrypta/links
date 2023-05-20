@@ -23,7 +23,7 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const { otToken, setOtToken } = useVerification();
+  const { otToken, setOtToken, closeModal } = useVerification();
 
   const verify = useCallback(async () => {
     setIsLoading(true);
@@ -38,6 +38,7 @@ export const NostrValidate = ({ npub }: NostrValidateProps) => {
     try {
       await setupNostr(npub, otToken);
       setOtToken(undefined);
+      closeModal();
       router.push("/admin");
     } catch (e) {
       alert("Error at trying to configure NOSTR");

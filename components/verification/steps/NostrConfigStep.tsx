@@ -29,7 +29,7 @@ export const NostrConfigStep = ({ username, next }: NostrConfigStepProps) => {
       const config = await refresh();
 
       if (!config || !config.username) {
-        throw new Error("No se encontró el usuario en la configiuración");
+        throw new Error("No se encontró el usuario en la configuración");
       }
 
       if (config.username !== username) {

@@ -7,6 +7,7 @@ interface VerificationContextProps {
   otToken?: string;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   showModal: (step?: number) => void;
+  closeModal: () => void;
   setOtToken: (_str: string | undefined) => void;
 }
 
@@ -14,6 +15,7 @@ const VerificationContext = React.createContext<VerificationContextProps>({
   step: 0,
   setStep: () => {},
   showModal: (_step?: number) => {},
+  closeModal: () => {},
   setOtToken: () => {},
 });
 
@@ -49,6 +51,7 @@ export const VerificationProvider = ({
         otToken,
         setStep,
         showModal,
+        closeModal,
         setOtToken,
       }}
     >
