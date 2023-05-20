@@ -11,8 +11,16 @@ export class GitHubProvider extends ConfigProvider {
     super(GitHubProvider.type, username);
   }
 
+  async getLastCommitHash(): Promise<string> {
+    const url = `https://api.github.com/repos/${this.username}/.hodl.ar/commits`;
+    const res = await fetchFileContents(url);
+    let commits = YAML.parse(res);
+    return commits[0].sha;
+  }
+
   async get(): Promise<Config> {
-    const url = `https://raw.githubusercontent.com/${this.username}/.hodl.ar/main/config.yml`;
+    const lastHash = await this.getLastCommitHash();
+    const url = `https://raw.githubusercontent.com/${this.username}/.hodl.ar/${lastHash}/config.yml`;
     const res = await fetchFileContents(url);
     let config = YAML.parse(res);
 
