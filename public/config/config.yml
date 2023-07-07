@@ -18,15 +18,14 @@ main:
 
 # Blocks list
 blocks:
-
   - title: "Discord"
     icon: "discord"
     url: "https://discord.lacrypta.com.ar"
-    
+
   - title: "Twitter"
     icon: "twitter"
     url: "https://twitter.lacrypta.com.ar"
-    
+
   - title: "Instagram"
     icon: "instagram"
     url: "https://instagram.lacrypta.com.ar"
@@ -46,3 +45,7 @@ blocks:
   - title: "Nostr"
     icon: "nostr"
     url: "https://iris.to/lacrypta@hodl.ar"
+
+  - title: "Donaciones"
+    icon: "lightning"
+    url: "https://39ad255340.d.voltageapp.io/lnurlp/link/JJ9Sn5"
