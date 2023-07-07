@@ -15,6 +15,7 @@ import {
 import { AiOutlineLink, AiFillLinkedin } from "react-icons/ai";
 import { IoMdHand } from "react-icons/io";
 import { GiOstrich } from "react-icons/gi";
+import { BsLightningChargeFill } from "react-icons/bs";
 
 import TagManager from "react-gtm-module";
 
@@ -23,6 +24,7 @@ const socialIcon: { [key in Icon]: IconType } = {
   instagram: GrInstagram,
   discord: SiDiscord,
   voluntary: IoMdHand,
+  lightning: BsLightningChargeFill,
   github: BsGithub,
   telegram: BsTelegram,
   twitter: BsTwitter,

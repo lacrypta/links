@@ -8,6 +8,7 @@ export type Icon =
   | "telegram"
   | "linkedin"
   | "nostr"
+  | "lightning"
   | "url"
   | "voluntary";
 
