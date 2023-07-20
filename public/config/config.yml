@@ -18,9 +18,9 @@ main:
 
 # Blocks list
 blocks:
-  - title: "Discord"
-    icon: "discord"
-    url: "https://discord.lacrypta.com.ar"
+  - title: "Telegram"
+    icon: "telegram"
+    url: "https://t.me/lacryptaok"
 
   - title: "Twitter"
     icon: "twitter"
@@ -30,6 +30,14 @@ blocks:
     icon: "instagram"
     url: "https://instagram.lacrypta.com.ar"
 
+  - title: "Discord"
+    icon: "discord"
+    url: "https://discord.lacrypta.com.ar"
+
+  - title: "Nostr"
+    icon: "nostr"
+    url: "https://iris.to/lacrypta@hodl.ar"
+
   - title: "Github"
     icon: "github"
     url: "https://github.lacrypta.com.ar"
@@ -37,14 +45,6 @@ blocks:
   - title: "Sitio Web"
     icon: "url"
     url: "https://www.lacrypta.com.ar/"
-
-  - title: "WhatsApp"
-    icon: "whatsapp"
-    url: "https://api.whatsapp.com/send/?phone=%2B541131080456&text=Hola+como+estan&type=phone_number&app_absent=0"
-
-  - title: "Nostr"
-    icon: "nostr"
-    url: "https://iris.to/lacrypta@hodl.ar"
 
   - title: "Donaciones"
     icon: "lightning"
