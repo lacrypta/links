@@ -93,7 +93,7 @@ export default function Home({ config, provider, userData, error }: HomeProps) {
           >
             <div className='sm:w-[800px] relative sm:mx-auto sm:max-w-lg'>
               <motion.div
-                className={"absolute top-5 right-2 z-50"}
+                className={"absolute top-5 right-2 z-50 hidden"}
                 initial={{ marginTop: 50, opacity: 0 }}
                 animate={{ marginTop: 0, opacity: 1 }}
                 transition={{ delay: 1.1 }}
